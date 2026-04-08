@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#3b82f6">
+    <title>لوحة التحكم | Simify</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    
+    <style>
+        /* ==================== نظام التصميم ==================== */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --accent: #00f2fe;
+            --bg-primary: #020617;
+            --bg-card: #0f172a;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius-xs: 6px;
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition: 0.2s ease;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .container {
+            padding: 0 14px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* ==================== شريط العروض ==================== */
+        .promo-bar {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #000;
+            text-align: center;
+            padding: 7px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .promo-bar i { font-size: 12px; }
+        .promo-bar strong {
+            background: rgba(0,0,0,0.1);
+            padding: 2px 8px;
+            border-radius: 30px;
+        }
+
+        /* ==================== الهيدر ==================== */
+        .header {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .logo span { color: var(--primary); }
+        .logo i { color: var(--primary); font-size: 20px; }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .balance-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .balance-card i {
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .balance-amount {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        .balance-amount small {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid var(--border-color);
+        }
+
+        /* ==================== شريط البحث والتصفية ==================== */
+        .search-section {
+            padding: 18px 0 12px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 14px 46px 14px 16px;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: border-color var(--transition);
+        }
+
+        .search-wrapper input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-wrapper input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 0;
+            scrollbar-width: none;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* ==================== عرض المسار ==================== */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .breadcrumb i {
+            font-size: 10px;
+            color: var(--primary);
+        }
+
+        .breadcrumb .back-btn {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .breadcrumb .current {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ==================== قائمة الخدمات ==================== */
+        .services-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .services-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .services-count {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 18px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+        }
+
+        .service-card:active {
+            transform: scale(0.97);
+        }
+
+        .service-card.popular {
+            border-color: var(--primary);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-icon img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+        }
+
+        .service-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .service-price {
+            margin-top: 10px;
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        /* ==================== قائمة الدول ==================== */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .country-card {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .country-card:hover {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .country-card:active {
+            transform: scale(0.97);
+        }
+
+        .country-flag {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .country-info {
+            flex: 1;
+        }
+
+        .country-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .country-info p {
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .country-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        /* ==================== شاشة طلب الرقم ==================== */
+        .order-section {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px 18px;
+            margin: 20px 0;
+        }
+
+        .order-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .order-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .order-header p {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .selected-service {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(59, 130, 246, 0.08);
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+        }
+
+        .selected-service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selected-service-icon img {
+            width: 34px;
+            height: 34px;
+        }
+
+        .selected-service-info h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .selected-service-info p {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .price-summary {
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .price-row.total {
+            font-weight: 800;
+            font-size: 18px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .order-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .order-btn:active {
+            transform: scale(0.98);
+        }
+
+        .order-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ==================== شاشة انتظار الرمز ==================== */
+        .waiting-section {
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: 30px 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .waiting-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--accent);
+            margin: 20px 0;
+            letter-spacing: 2px;
+            direction: ltr;
+        }
+
+        .waiting-timer {
+            margin: 20px 0;
+        }
+
+        .timer-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .timer-circle svg {
+            width: 80px;
+            height: 80px;
+            transform: rotate(-90deg);
+        }
+
+        .timer-circle circle {
+            fill: none;
+            stroke-width: 6;
+        }
+
+        .timer-bg {
+            stroke: var(--border-color);
+        }
+
+        .timer-progress {
+            stroke: var(--primary);
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .timer-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .code-display {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .code-label {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .code-value {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--success);
+            letter-spacing: 8px;
+            direction: ltr;
+        }
+
+        .waiting-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .waiting-actions .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1.5px solid var(--border-color);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        /* ==================== حالات التحميل ==================== */
+        .loading-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .loader-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 36px;
+        }
+
+        .empty-state h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ==================== شريط التنقل السفلي ==================== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid var(--border-color);
+            padding: 6px 16px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 99;
+        }
+
+        .bottom-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            font-size: 10px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all var(--transition);
+        }
+
+        .bottom-nav a i {
+            font-size: 20px;
+        }
+
+        .bottom-nav a.active {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* ==================== Toast ==================== */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { border-right: 4px solid var(--success); }
+        .toast.error { border-right: 4px solid var(--danger); }
+        .toast i { font-size: 24px; }
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--danger); }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 700; margin-bottom: 2px; }
+        .toast-message { font-size: 13px; color: var(--text-secondary); }
+        .toast-close { color: var(--text-muted); cursor: pointer; font-size: 18px; }
+
+        /* ==================== Modal ==================== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px 22px;
+            max-width: 380px;
+            width: 100%;
+        }
+
+        /* ==================== الأدوات المساعدة ==================== */
+        .d-none { display: none !important; }
+        .d-flex { display: flex !important; }
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 12px; }
+        .mb-2 { margin-bottom: 12px; }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <!-- شريط العروض -->
+    <div class="promo-bar" id="promoBar">
+        <i class="fas fa-gift"></i>
+        <span>خصم <strong>25%</strong> على أول شحن</span>
+        <span>|</span>
+        <span>كود: <strong>SIMIFY25</strong></span>
+        <i class="fas fa-gift"></i>
+    </div>
+
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="container">
+            <div class="header-row">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-sim-card"></i>
+                    SIMIFY<span>.</span>
+                </a>
+                <div class="user-info">
+                    <div class="balance-card" onclick="window.location.href='funds.html'">
+                        <i class="fas fa-wallet"></i>
+                        <span class="balance-amount" id="userBalance">0.00 <small>ج.م</small></span>
+                    </div>
+                    <div class="user-avatar" id="userAvatar" onclick="showUserMenu()">
+                        <span id="userInitial">م</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- شريط البحث -->
+            <div class="search-section" id="searchSection">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="ابحث عن خدمة..." oninput="filterServices()">
+                </div>
+                <div class="filter-tabs" id="filterTabs">
+                    <span class="filter-tab active" onclick="filterByCategory('all')">الكل</span>
+                    <span class="filter-tab" onclick="filterByCategory('social')">تواصل اجتماعي</span>
+                    <span class="filter-tab" onclick="filterByCategory('email')">بريد إلكتروني</span>
+                    <span class="filter-tab" onclick="filterByCategory('finance')">مالية</span>
+                    <span class="filter-tab" onclick="filterByCategory('other')">أخرى</span>
+                </div>
+            </div>
+
+            <!-- عرض المسار -->
+            <div class="breadcrumb" id="breadcrumb" style="display: none;">
+                <span class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-right"></i>
+                    رجوع
+                </span>
+                <i class="fas fa-chevron-left"></i>
+                <span class="current" id="breadcrumbText">الخدمات</span>
+            </div>
+
+            <!-- عرض الخدمات -->
+            <div id="servicesView">
+                <div class="services-header">
+                    <h3>الخدمات المتاحة</h3>
+                    <span class="services-count" id="servicesCount">0 خدمة</span>
+                </div>
+                <div class="services-grid" id="servicesGrid">
+                    <div class="loading-state">
+                        <div class="loader-spinner"></div>
+                        <p>جاري تحميل الخدمات...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- عرض الدول -->
+            <div id="countriesView" style="display: none;">
+                <div class="services-header">
+                    <h3 id="selectedServiceName">اختر الدولة</h3>
+                    <span class="services-count" id="countriesCount">0 دولة</span>
+                </div>
+                <div class="countries-grid" id="countriesGrid">
+                    <!-- سيتم ملؤها ديناميكياً -->
+                </div>
+            </div>
+
+            <!-- شاشة طلب الرقم -->
+            <div id="orderView" style="display: none;">
+                <!-- سيتم ملؤها ديناميكياً -->
+            </div>
+
+            <!-- شاشة انتظار الرمز -->
+            <div id="waitingView" style="display: none;">
+                <!-- سيتم ملؤها ديناميكياً -->
+            </div>
+        </div>
+    </main>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a href="dashboard.html" class="active"><i class="fas fa-columns"></i><span>الخدمات</span></a>
+        <a href="activation.html"><i class="fas fa-history"></i><span>التفعيلات</span></a>
+        <a href="funds.html"><i class="fas fa-wallet"></i><span>الرصيد</span></a>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">نجاح</div>
+            <div class="toast-message" id="toastMessage">تمت العملية بنجاح</div>
+        </div>
+        <i class="fas fa-times toast-close" onclick="hideToast()"></i>
+    </div>
+
+    <!-- Modal تأكيد الشراء -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <i class="fas fa-shopping-cart" style="font-size: 48px; color: var(--primary);"></i>
+            </div>
+            <h3 style="text-align: center; margin-bottom: 10px;">تأكيد الشراء</h3>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;" id="confirmMessage">
+                هل أنت متأكد من شراء هذا الرقم؟
+            </p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeConfirmModal()">إلغاء</button>
+                <button class="btn btn-primary" style="flex: 1;" id="confirmBtn">تأكيد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase & Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // ==================== Firebase Configuration ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfkuAvySUDyzmMWHFMFlx1FL0gGFYT3Ek",
+            authDomain: "takhmen1.firebaseapp.com",
+            projectId: "takhmen1",
+            storageBucket: "takhmen1.firebasestorage.app",
+            messagingSenderId: "558818074473",
+            appId: "1:558818074473:web:907ff68e4c3fabb7fd27f8"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ==================== API Configuration ====================
+        const API_BASE_URL = 'https://simify-back.vercel.app/api';
+        const HERO_API_KEY = 'YOUR_HERO_API_KEY'; // سيتم استبدالها من الباك إند
+
+        // ==================== State Management ====================
+        let currentUser = null;
+        let userBalance = 0;
+        let allServices = [];
+        let filteredServices = [];
+        let currentCategory = 'all';
+        let searchQuery = '';
+        let selectedService = null;
+        let selectedCountry = null;
+        let currentActivation = null;
+        let currentView = 'services';
+        let pollingInterval = null;
+        let timerInterval = null;
+
+        // ==================== تصنيفات الخدمات ====================
+        const serviceCategories = {
+            'wa': 'social', 'wb': 'social', 'tg': 'social', 'vk': 'social', 'ok': 'social',
+            'fb': 'social', 'ig': 'social', 'tw': 'social', 'sn': 'social', 'ln': 'social',
+            'gm': 'email', 'ml': 'email', 'ya': 'email', 'ol': 'email', 'ma': 'email',
+            'pp': 'finance', 'py': 'finance', 'sk': 'finance', 'rv': 'finance',
+            'go': 'other', 'am': 'other', 'az': 'other', 'nv': 'other'
+        };
+
+        // ==================== أسماء الخدمات بالعربية ====================
+        const serviceNamesAr = {
+            'tg': 'تيليجرام', 'wa': 'واتساب', 'wb': 'واتساب بزنس', 'vk': 'فكونتاكتي',
+            'ok': 'أودنوكلاسنيكي', 'fb': 'فيسبوك', 'ig': 'إنستجرام', 'tw': 'تويتر',
+            'gm': 'جوجل/Gmail', 'ml': 'مايل.رو', 'ya': 'ياندكس', 'ol': 'أوت لوك',
+            'ma': 'ميل.كوم', 'pp': 'باي بال', 'py': 'بايونير', 'sk': 'سكريل',
+            'go': 'جوجل فويس', 'am': 'أمازون', 'az': 'علي بابا', 'nv': 'نافير'
+        };
+
+        // ==================== أسماء الدول بالعربية ====================
+        const countryNamesAr = {
+            '0': 'روسيا', '1': 'أوكرانيا', '2': 'كازاخستان', '3': 'الصين', '4': 'الفلبين',
+            '5': 'ميانمار', '6': 'إندونيسيا', '7': 'ماليزيا', '8': 'كينيا', '9': 'تنزانيا',
+            '10': 'فيتنام', '11': 'قيرغيزستان', '12': 'الولايات المتحدة', '13': 'إسرائيل',
+            '14': 'هونج كونج', '15': 'بولندا', '16': 'إنجلترا', '17': 'مدغشقر', '18': 'الكونغو',
+            '19': 'نيجيريا', '20': 'ماكاو', '21': 'مصر', '22': 'الهند', '23': 'أيرلندا',
+            '24': 'كمبوديا', '25': 'لاوس', '26': 'هايتي', '27': 'ساحل العاج', '28': 'غامبيا',
+            '29': 'صربيا', '30': 'اليمن', '31': 'جنوب أفريقيا', '32': 'رومانيا', '33': 'كولومبيا',
+            '34': 'إستونيا', '35': 'أذربيجان', '36': 'كندا', '37': 'المغرب', '38': 'غانا',
+            '39': 'الأرجنتين', '40': 'أوزبكستان', '41': 'الكاميرون', '42': 'تشاد', '43': 'ألمانيا',
+            '44': 'ليتوانيا', '45': 'كرواتيا', '46': 'السويد', '47': 'العراق', '48': 'هولندا',
+            '49': 'لاتفيا', '50': 'النمسا', '51': 'بيلاروسيا', '52': 'تايلاند', '53': 'السعودية',
+            '54': 'المكسيك', '55': 'تايوان', '56': 'إسبانيا', '57': 'إيران', '58': 'الجزائر',
+            '59': 'سلوفينيا', '60': 'بنغلاديش', '61': 'السنغال', '62': 'تركيا', '63': 'جمهورية التشيك',
+            '64': 'سريلانكا', '65': 'بيرو', '66': 'باكستان', '67': 'نيوزيلندا', '68': 'غينيا',
+            '69': 'مالي', '70': 'فنزويلا', '71': 'إثيوبيا', '72': 'منغوليا', '73': 'البرازيل',
+            '74': 'أفغانستان', '75': 'أوغندا', '76': 'أنغولا', '77': 'قبرص', '78': 'فرنسا',
+            '79': 'بابوا غينيا الجديدة', '80': 'موزمبيق', '81': 'نيبال', '82': 'بلجيكا',
+            '83': 'بلغاريا', '84': 'المجر', '85': 'مولدوفا', '86': 'إيطاليا', '87': 'باراغواي',
+            '88': 'هندوراس', '89': 'تونس', '90': 'نيكاراغوا', '91': 'تيمور الشرقية', '92': 'بوليفيا',
+            '93': 'كوستاريكا', '94': 'غواتيمالا', '95': 'الإمارات', '96': 'زيمبابوي',
+            '97': 'بورتوريكو', '98': 'السودان', '99': 'توغو', '100': 'الكويت', '101': 'السلفادور',
+            '102': 'ليبيا', '103': 'جامايكا', '104': 'ترينيداد وتوباغو', '105': 'الإكوادور',
+            '106': 'سوازيلاند', '107': 'عمان', '108': 'البوسنة والهرسك', '109': 'جمهورية الدومينيكان',
+            '110': 'سوريا', '111': 'قطر', '112': 'بنما', '113': 'موريتانيا', '114': 'سيراليون',
+            '115': 'الأردن', '116': 'البرتغال', '117': 'باربادوس', '118': 'بوروندي', '119': 'بنين',
+            '120': 'بروناي', '121': 'جزر البهاما', '122': 'بوتسوانا', '123': 'بليز', '124': 'جمهورية أفريقيا الوسطى',
+            '125': 'دومينيكا', '126': 'غرينادا', '127': 'جورجيا', '128': 'اليونان', '129': 'غينيا بيساو',
+            '130': 'غيانا', '131': 'أيسلندا', '132': 'جزر القمر', '133': 'سانت كيتس ونيفيس',
+            '134': 'ليبيريا', '135': 'ليسوتو', '136': 'مالاوي', '137': 'ناميبيا', '138': 'النيجر',
+            '139': 'رواندا', '140': 'سلوفاكيا', '141': 'سورينام', '142': 'طاجيكستان', '143': 'موناكو',
+            '144': 'البحرين', '145': 'برمودا', '146': 'بوتان', '147': 'فيجي', '148': 'الغابون',
+            '149': 'جامايكا', '150': 'الأردن', '151': 'كيريباتي', '152': 'كوسوفو', '153': 'لوكسمبورغ',
+            '154': 'موريشيوس', '155': 'الجبل الأسود', '156': 'فلسطين', '157': 'سان مارينو',
+            '158': 'سيشل', '159': 'الصومال', '160': 'جنوب السودان', '161': 'سويسرا', '162': 'تركمانستان',
+            '163': 'أوروغواي', '164': 'فانواتو', '165': 'الفاتيكان', '166': 'زامبيا', '167': 'ألبانيا',
+            '168': 'أندورا', '169': 'أرمينيا', '170': 'أروبا', '171': 'جزر كايمان', '172': 'تشيلي',
+            '173': 'جيبوتي', '174': 'إريتريا', '175': 'جزر فارو', '176': 'فنلندا', '177': 'بولينيزيا الفرنسية',
+            '178': 'جبل طارق', '179': 'جرينلاند', '180': 'غوام', '181': 'غيرنزي', '182': 'جزيرة مان',
+            '183': 'جيرزي', '184': 'كوريا الشمالية', '185': 'ليختنشتاين', '186': 'ماكاو', '187': 'مقدونيا',
+            '188': 'جزر المالديف', '189': 'مالطا', '190': 'جزر مارشال', '191': 'ميكرونيزيا',
+            '192': 'مولدوفا', '193': 'موناكو', '194': 'ناورو', '195': 'كاليدونيا الجديدة',
+            '196': 'نيوي', '197': 'جزيرة نورفولك', '198': 'جزر ماريانا الشمالية', '199': 'النرويج',
+            '200': 'بالاو', '201': 'سان بيير وميكلون', '202': 'ساموا', '203': 'سنغافورة',
+            '204': 'جزر سليمان', '205': 'توكيلاو', '206': 'تونغا', '207': 'توفالو', '208': 'فانواتو',
+            '209': 'جزر العذراء البريطانية', '210': 'جزر العذراء الأمريكية', '211': 'واليس وفوتونا'
+        };
+
+        // ==================== دوال المساعدة ====================
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            const icon = toast.querySelector('i');
+            
+            toast.classList.remove('show', 'success', 'error');
+            toast.classList.add(type, 'show');
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else {
+                icon.className = 'fas fa-exclamation-circle';
+            }
+            
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        window.hideToast = () => document.getElementById('toast').classList.remove('show');
+
+        function formatPrice(price) {
+            return parseFloat(price).toFixed(2);
+        }
+
+        function getServiceName(code) {
+            return serviceNamesAr[code] || code.toUpperCase();
+        }
+
+        function getCountryName(code) {
+            return countryNamesAr[code] || `الدولة (${code})`;
+        }
+
+        function getServiceCategory(code) {
+            return serviceCategories[code] || 'other';
+        }
+
+        // ==================== تحميل بيانات المستخدم ====================
+        async function loadUserData() {
+            try {
+                const user = auth.currentUser;
+                if (!user) {
+                    window.location.href = 'auth.html';
+                    return;
+                }
+
+                currentUser = user;
+                document.getElementById('userInitial').textContent = 
+                    (user.displayName?.[0] || user.email?.[0] || 'م').toUpperCase();
+
+                // تحميل الرصيد من Firestore
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    userBalance = userDoc.data().balance || 0;
+                    document.getElementById('userBalance').innerHTML = `${userBalance.toFixed(2)} <small>ج.م</small>`;
+                }
+
+                // حفظ في localStorage
+                localStorage.setItem('simify_user', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName,
+                    balance: userBalance
+                }));
+
+            } catch (error) {
+                console.error('Error loading user:', error);
+            }
+        }
+
+        // ==================== جلب الخدمات ====================
+        async function fetchServices() {
+            try {
+                // محاولة الجلب من localStorage أولاً
+                const cached = localStorage.getItem('simify_services');
+                const cacheTime = localStorage.getItem('simify_services_time');
+                
+                if (cached && cacheTime) {
+                    const hoursSince = (Date.now() - parseInt(cacheTime)) / (1000 * 60 * 60);
+                    if (hoursSince < 24) {
+                        allServices = JSON.parse(cached);
+                        displayServices();
+                        return;
+                    }
+                }
+
+                // جلب الخدمات من الباك إند
+                const response = await fetch(`${API_BASE_URL}/services`);
+                const data = await response.json();
+                
+                if (data.success && data.services) {
+                    // تحويل البيانات للشكل المطلوب
+                    if (Array.isArray(data.services)) {
+                        allServices = data.services;
+                    } else if (data.services.services) {
+                        allServices = data.services.services;
+                    } else {
+                        allServices = Object.entries(data.services).map(([code, name]) => ({
+                            code, name
+                        }));
+                    }
+                    
+                    // حفظ في localStorage
+                    localStorage.setItem('simify_services', JSON.stringify(allServices));
+                    localStorage.setItem('simify_services_time', Date.now().toString());
+                    
+                    displayServices();
+                } else {
+                    // استخدام خدمات افتراضية في حالة فشل الجلب
+                    loadDefaultServices();
+                }
+            } catch (error) {
+                console.error('Error fetching services:', error);
+                loadDefaultServices();
+            }
+        }
+
+        function loadDefaultServices() {
+            allServices = [
+                { code: 'tg', name: 'Telegram' },
+                { code: 'wa', name: 'WhatsApp' },
+                { code: 'wb', name: 'WhatsApp Business' },
+                { code: 'vk', name: 'VKontakte' },
+                { code: 'fb', name: 'Facebook' },
+                { code: 'ig', name: 'Instagram' },
+                { code: 'gm', name: 'Google/Gmail' },
+                { code: 'ml', name: 'Mail.ru' },
+                { code: 'ya', name: 'Yandex' },
+                { code: 'pp', name: 'PayPal' },
+                { code: 'am', name: 'Amazon' },
+                { code: 'go', name: 'Google Voice' }
+            ];
+            
+            localStorage.setItem('simify_services', JSON.stringify(allServices));
+            localStorage.setItem('simify_services_time', Date.now().toString());
+            
+            displayServices();
+        }
+
+        function displayServices() {
+            filterServices();
+            
+            const grid = document.getElementById('servicesGrid');
+            const countEl = document.getElementById('servicesCount');
+            
+            countEl.textContent = `${filteredServices.length} خدمة`;
+            
+            if (filteredServices.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: span 2;">
+                        <div class="empty-icon"><i class="fas fa-search"></i></div>
+                        <h4>لا توجد خدمات</h4>
+                        <p>جرب البحث عن شيء آخر</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = filteredServices.map(service => {
+                const code = service.code;
+                const nameAr = getServiceName(code);
+                const isPopular = ['tg', 'wa', 'gm'].includes(code);
+                
+                return `
+                    <div class="service-card ${isPopular ? 'popular' : ''}" onclick="selectService('${code}')">
+                        ${isPopular ? '<span class="popular-badge"><i class="fas fa-fire"></i> الأكثر طلباً</span>' : ''}
+                        <div class="service-icon">
+                            <i class="fas fa-${getServiceIcon(code)}" style="font-size: 32px; color: var(--primary);"></i>
+                        </div>
+                        <h4>${nameAr}</h4>
+                        <p>${code.toUpperCase()}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getServiceIcon(code) {
+            const icons = {
+                'tg': 'paper-plane', 'wa': 'comment', 'wb': 'comment-dots',
+                'vk': 'vk', 'fb': 'facebook', 'ig': 'instagram',
+                'gm': 'envelope', 'ml': 'envelope-open', 'ya': 'envelope',
+                'pp': 'paypal', 'am': 'shopping-cart', 'go': 'phone'
+            };
+            return icons[code] || 'globe';
+        }
+
+        // ==================== تصفية الخدمات ====================
+        function filterServices() {
+            filteredServices = allServices.filter(service => {
+                const code = service.code;
+                const nameAr = getServiceName(code);
+                const nameEn = service.name || code;
+                
+                // تصفية حسب الفئة
+                if (currentCategory !== 'all') {
+                    if (getServiceCategory(code) !== currentCategory) return false;
+                }
+                
+                // تصفية حسب البحث
+                if (searchQuery) {
+                    const query = searchQuery.toLowerCase();
+                    return nameAr.includes(query) || nameEn.toLowerCase().includes(query) || code.includes(query);
+                }
+                
+                return true;
+            });
+        }
+
+        window.filterByCategory = (category) => {
+            currentCategory = category;
+            
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.textContent.includes(getCategoryName(category))) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            displayServices();
+        };
+
+        function getCategoryName(category) {
+            const names = {
+                'all': 'الكل', 'social': 'تواصل اجتماعي',
+                'email': 'بريد إلكتروني', 'finance': 'مالية', 'other': 'أخرى'
+            };
+            return names[category] || category;
+        }
+
+        window.filterServices = () => {
+            searchQuery = document.getElementById('searchInput').value;
+            displayServices();
+        };
+
+        // ==================== اختيار الخدمة وعرض الدول ====================
+        window.selectService = async (serviceCode) => {
+            selectedService = serviceCode;
+            
+            // إخفاء عرض الخدمات وإظهار عرض الدول
+            document.getElementById('servicesView').style.display = 'none';
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('countriesView').style.display = 'block';
+            document.getElementById('breadcrumb').style.display = 'flex';
+            
+            const serviceName = getServiceName(serviceCode);
+            document.getElementById('selectedServiceName').textContent = serviceName;
+            document.getElementById('breadcrumbText').textContent = serviceName;
+            
+            // عرض تحميل
+            document.getElementById('countriesGrid').innerHTML = `
+                <div class="loading-state" style="grid-column: span 2;">
+                    <div class="loader-spinner"></div>
+                    <p>جاري تحميل الدول المتاحة...</p>
+                </div>
+            `;
+            
+            try {
+                // جلب الدول المتاحة من الباك إند
+                const response = await fetch(`${API_BASE_URL}/prices?service=${serviceCode}`);
+                const data = await response.json();
+                
+                if (data.success && data.prices) {
+                    displayCountries(data.prices);
+                } else {
+                    loadDefaultCountries();
+                }
+            } catch (error) {
+                console.error('Error fetching countries:', error);
+                loadDefaultCountries();
+            }
+        };
+
+        function loadDefaultCountries() {
+            const defaultCountries = [
+                { code: '0', name: 'روسيا', price: 12.50 },
+                { code: '1', name: 'أوكرانيا', price: 15.00 },
+                { code: '2', name: 'كازاخستان', price: 10.00 },
+                { code: '12', name: 'الولايات المتحدة', price: 18.00 },
+                { code: '16', name: 'إنجلترا', price: 20.00 },
+                { code: '21', name: 'مصر', price: 8.00 },
+                { code: '53', name: 'السعودية', price: 14.00 },
+                { code: '73', name: 'البرازيل', price: 11.00 }
+            ];
+            
+            displayCountries(defaultCountries);
+        }
+
+        function displayCountries(countries) {
+            const grid = document.getElementById('countriesGrid');
+            const countEl = document.getElementById('countriesCount');
+            
+            let countriesList = countries;
+            if (typeof countries === 'object' && !Array.isArray(countries)) {
+                // تحويل object إلى array
+                countriesList = Object.entries(countries).map(([code, data]) => ({
+                    code,
+                    price: data.cost || data.price || 15.00
+                }));
+            }
+            
+            countEl.textContent = `${countriesList.length} دولة`;
+            
+            if (countriesList.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: span 2;">
+                        <div class="empty-icon"><i class="fas fa-globe"></i></div>
+                        <h4>لا توجد دول متاحة</h4>
+                        <p>جرب اختيار خدمة أخرى</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = countriesList.map(country => {
+                const code = country.code || country.id;
+                const price = country.price || country.cost || 15.00;
+                const name = getCountryName(code);
+                
+                return `
+                    <div class="country-card" onclick="selectCountry('${code}', '${name}', ${price})">
+                        <div class="country-flag">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="country-info">
+                            <h4>${name}</h4>
+                            <p>متاح الآن</p>
+                        </div>
+                        <div class="country-price">${formatPrice(price)} ج.م</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==================== اختيار الدولة وعرض شاشة الطلب ====================
+        window.selectCountry = (countryCode, countryName, price) => {
+            selectedCountry = { code: countryCode, name: countryName, price };
+            
+            document.getElementById('countriesView').style.display = 'none';
+            document.getElementById('orderView').style.display = 'block';
+            document.getElementById('breadcrumbText').textContent = 'تأكيد الطلب';
+            
+            const serviceName = getServiceName(selectedService);
+            
+            document.getElementById('orderView').innerHTML = `
+                <div class="order-section">
+                    <div class="order-header">
+                        <h3>تأكيد الطلب</h3>
+                        <p>راجع تفاصيل الطلب قبل الشراء</p>
+                    </div>
+                    
+                    <div class="selected-service">
+                        <div class="selected-service-icon">
+                            <i class="fas fa-${getServiceIcon(selectedService)}" style="font-size: 30px; color: var(--primary);"></i>
+                        </div>
+                        <div class="selected-service-info">
+                            <h4>${serviceName}</h4>
+                            <p><i class="fas fa-map-marker-alt"></i> ${countryName}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="price-summary">
+                        <div class="price-row">
+                            <span>سعر الرقم</span>
+                            <span>${formatPrice(price)} ج.م</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>الإجمالي</span>
+                            <span>${formatPrice(price)} ج.م</span>
+                        </div>
+                    </div>
+                    
+                    ${userBalance < price ? `
+                        <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); border-radius: var(--radius-md); padding: 14px; margin-bottom: 20px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i>
+                            <p style="color: var(--danger); margin-top: 8px;">رصيدك غير كافي. يرجى شحن الرصيد أولاً.</p>
+                            <button class="btn btn-primary" style="margin-top: 12px;" onclick="window.location.href='funds.html'">
+                                <i class="fas fa-wallet"></i> شحن الرصيد
+                            </button>
+                        </div>
+                    ` : `
+                        <button class="order-btn" onclick="showConfirmModal()">
+                            <i class="fas fa-shopping-cart"></i>
+                            شراء الرقم
+                        </button>
+                    `}
+                    
+                    <button class="btn btn-secondary" style="margin-top: 12px; width: 100%;" onclick="goBack()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                </div>
+            `;
+        };
+
+        // ==================== تأكيد الشراء ====================
+        let pendingOrder = null;
+
+        window.showConfirmModal = () => {
+            const price = selectedCountry.price;
+            const serviceName = getServiceName(selectedService);
+            
+            document.getElementById('confirmMessage').innerHTML = `
+                هل أنت متأكد من شراء رقم ${serviceName} من ${selectedCountry.name}؟
+                <br><br>
+                <strong>السعر: ${formatPrice(price)} ج.م</strong>
+            `;
+            
+            document.getElementById('confirmModal').classList.add('show');
+            
+            document.getElementById('confirmBtn').onclick = () => {
+                closeConfirmModal();
+                purchaseNumber();
+            };
+        };
+
+        window.closeConfirmModal = () => {
+            document.getElementById('confirmModal').classList.remove('show');
+        };
+
+        // ==================== شراء الرقم ====================
+        async function purchaseNumber() {
+            const btn = document.querySelector('.order-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loader-spinner" style="width: 20px; height: 20px;"></span> جاري الشراء...';
+            
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/get-number?uid=${currentUser.uid}&service=${selectedService}&country=${selectedCountry.code}`,
+                    { method: 'GET' }
+                );
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentActivation = {
+                        id: data.activationId,
+                        number: data.phoneNumber,
+                        service: selectedService,
+                        country: selectedCountry,
+                        price: data.cost || selectedCountry.price,
+                        endTime: data.activationEndTime,
+                        startTime: new Date().toISOString()
+                    };
+                    
+                    // تحديث الرصيد
+                    if (data.remainingBalance !== undefined) {
+                        userBalance = data.remainingBalance;
+                        document.getElementById('userBalance').innerHTML = `${userBalance.toFixed(2)} <small>ج.م</small>`;
+                    }
+                    
+                    showToast('success', 'تم الشراء', `تم شراء الرقم ${data.phoneNumber} بنجاح`);
+                    
+                    // الانتقال لشاشة الانتظار
+                    showWaitingScreen();
+                } else {
+                    showToast('error', 'خطأ', data.error || 'حدث خطأ في شراء الرقم');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-shopping-cart"></i> شراء الرقم';
+                }
+            } catch (error) {
+                console.error('Purchase error:', error);
+                showToast('error', 'خطأ', 'حدث خطأ في الاتصال بالسيرفر');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-shopping-cart"></i> شراء الرقم';
+            }
+        }
+
+        // ==================== شاشة انتظار الرمز ====================
+        function showWaitingScreen() {
+            document.getElementById('orderView').style.display = 'none';
+            document.getElementById('waitingView').style.display = 'block';
+            document.getElementById('breadcrumbText').textContent = 'في انتظار الرمز';
+            
+            const serviceName = getServiceName(currentActivation.service);
+            
+            document.getElementById('waitingView').innerHTML = `
+                <div class="waiting-section">
+                    <div style="margin-bottom: 20px;">
+                        <i class="fas fa-${getServiceIcon(currentActivation.service)}" style="font-size: 40px; color: var(--primary);"></i>
+                        <h4 style="margin-top: 10px;">${serviceName}</h4>
+                        <p style="color: var(--text-secondary);">${currentActivation.country.name}</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <p style="color: var(--text-secondary); font-size: 14px;">الرقم الخاص بك</p>
+                        <div class="waiting-number" id="phoneNumber">${formatPhoneNumber(currentActivation.number)}</div>
+                        <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 13px;" onclick="copyPhoneNumber()">
+                            <i class="far fa-copy"></i> نسخ الرقم
+                        </button>
+                    </div>
+                    
+                    <div class="waiting-timer">
+                        <div class="timer-circle">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="timer-progress" cx="50" cy="50" r="45" id="timerProgress"></circle>
+                            </svg>
+                            <div class="timer-text" id="timerDisplay">20:00</div>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 13px;">الوقت المتبقي</p>
+                    </div>
+                    
+                    <div id="codeSection" style="display: none;">
+                        <div class="code-display">
+                            <div class="code-label">
+                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                تم استلام الرمز!
+                            </div>
+                            <div class="code-value" id="smsCode">------</div>
+                        </div>
+                    </div>
+                    
+                    <div id="waitingMessage">
+                        <div class="loader-spinner" style="width: 30px; height: 30px; margin: 20px auto;"></div>
+                        <p>في انتظار وصول الرمز...</p>
+                        <p style="color: var(--text-secondary); font-size: 12px; margin-top: 8px;">
+                            يتم التحقق كل 3 ثوانٍ
+                        </p>
+                    </div>
+                    
+                    <div class="waiting-actions">
+                        <button class="btn btn-secondary" onclick="resendSMS()">
+                            <i class="fas fa-redo-alt"></i>
+                            إعادة إرسال
+                        </button>
+                        <button class="btn btn-danger" onclick="cancelActivation()">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // بدء التايمر
+            startTimer();
+            
+            // بدء فحص الرمز
+            startPolling();
+        }
+
+        function formatPhoneNumber(number) {
+            if (!number) return '';
+            return number.replace(/(\+\d{1,3})(\d{3})(\d{3})(\d{4})/, '$1 $2 $3 $4');
+        }
+
+        window.copyPhoneNumber = () => {
+            navigator.clipboard?.writeText(currentActivation.number);
+            showToast('success', 'تم النسخ', 'تم نسخ الرقم إلى الحافظة');
+        };
+
+        // ==================== التايمر ====================
+        function startTimer() {
+            const endTime = currentActivation.endTime ? new Date(currentActivation.endTime) : new Date(Date.now() + 20 * 60 * 1000);
+            const totalSeconds = Math.floor((endTime - Date.now()) / 1000);
+            let remainingSeconds = Math.max(0, totalSeconds);
+            
+            const timerDisplay = document.getElementById('timerDisplay');
+            const progressCircle = document.getElementById('timerProgress');
+            
+            if (!progressCircle) return;
+            
+            const circumference = 2 * Math.PI * 45;
+            progressCircle.style.strokeDasharray = circumference;
+            
+            timerInterval = setInterval(() => {
+                remainingSeconds--;
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = '00:00';
+                    showToast('warning', 'انتهى الوقت', 'انتهت صلاحية الرقم');
+                } else {
+                    const minutes = Math.floor(remainingSeconds / 60);
+                    const seconds = remainingSeconds % 60;
+                    timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    const progress = remainingSeconds / totalSeconds;
+                    progressCircle.style.strokeDashoffset = circumference * (1 - progress);
+                }
+            }, 1000);
+        }
+
+        // ==================== فحص الرمز ====================
+        function startPolling() {
+            pollingInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/get-sms?activationId=${currentActivation.id}`);
+                    const data = await response.json();
+                    
+                    if (data.success && data.code) {
+                        clearInterval(pollingInterval);
+                        
+                        document.getElementById('waitingMessage').style.display = 'none';
+                        document.getElementById('codeSection').style.display = 'block';
+                        document.getElementById('smsCode').textContent = data.code;
+                        
+                        showToast('success', 'وصل الرمز!', `الرمز: ${data.code}`);
+                        
+                        // حفظ التفعيل في السجل
+                        saveActivationToHistory(data.code);
+                    }
+                } catch (error) {
+                    console.error('Polling error:', error);
+                }
+            }, 3000);
+        }
+
+        async function saveActivationToHistory(code) {
+            try {
+                const history = JSON.parse(localStorage.getItem('simify_activations') || '[]');
+                history.unshift({
+                    ...currentActivation,
+                    code,
+                    completedAt: new Date().toISOString()
+                });
+                localStorage.setItem('simify_activations', JSON.stringify(history.slice(0, 50)));
+            } catch (error) {
+                console.error('Error saving history:', error);
+            }
+        }
+
+        // ==================== إعادة إرسال الرمز ====================
+        window.resendSMS = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/resend-sms`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ activationId: currentActivation.id })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('success', 'تم', 'جاري إعادة إرسال الرمز');
+                } else {
+                    showToast('error', 'خطأ', data.error || 'لا يمكن إعادة الإرسال حالياً');
+                }
+            } catch (error) {
+                showToast('error', 'خطأ', 'حدث خطأ في الاتصال');
+            }
+        };
+
+        // ==================== إلغاء التفعيل ====================
+        window.cancelActivation = async () => {
+            if (!confirm('هل أنت متأكد من إلغاء الطلب؟ سيتم استرداد الرصيد.')) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/cancel-number`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        uid: currentUser.uid,
+                        activationId: currentActivation.id,
+                        refundAmount: currentActivation.price
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    clearInterval(pollingInterval);
+                    clearInterval(timerInterval);
+                    
+                    userBalance = data.newBalance;
+                    document.getElementById('userBalance').innerHTML = `${userBalance.toFixed(2)} <small>ج.م</small>`;
+                    
+                    showToast('success', 'تم الإلغاء', 'تم إلغاء الطلب واسترداد الرصيد');
+                    
+                    // العودة لعرض الخدمات
+                    resetToServicesView();
+                } else {
+                    showToast('error', 'خطأ', data.error || 'حدث خطأ في الإلغاء');
+                }
+            } catch (error) {
+                showToast('error', 'خطأ', 'حدث خطأ في الاتصال');
+            }
+        };
+
+        // ==================== التنقل ====================
+        window.goBack = () => {
+            if (currentView === 'countries') {
+                document.getElementById('countriesView').style.display = 'none';
+                document.getElementById('servicesView').style.display = 'block';
+                document.getElementById('searchSection').style.display = 'block';
+                document.getElementById('breadcrumb').style.display = 'none';
+                currentView = 'services';
+            } else if (currentView === 'order') {
+                document.getElementById('orderView').style.display = 'none';
+                document.getElementById('countriesView').style.display = 'block';
+                document.getElementById('breadcrumbText').textContent = getServiceName(selectedService);
+                currentView = 'countries';
+            }
+        };
+
+        function resetToServicesView() {
+            clearInterval(pollingInterval);
+            clearInterval(timerInterval);
+            
+            document.getElementById('waitingView').style.display = 'none';
+            document.getElementById('orderView').style.display = 'none';
+            document.getElementById('countriesView').style.display = 'none';
+            document.getElementById('servicesView').style.display = 'block';
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('breadcrumb').style.display = 'none';
+            
+            currentView = 'services';
+            selectedService = null;
+            selectedCountry = null;
+            currentActivation = null;
+        }
+
+        window.showUserMenu = () => {
+            const menu = document.createElement('div');
+            menu.style.cssText = `
+                position: fixed; top: 70px; left: 20px; background: var(--bg-card);
+                border: 1px solid var(--border-color); border-radius: var(--radius-md);
+                padding: 8px; z-index: 1000; min-width: 180px;
+            `;
+            menu.innerHTML = `
+                <div style="padding: 12px; border-bottom: 1px solid var(--border-color);">
+                    <p style="font-weight: 700;">${currentUser?.displayName || 'مستخدم'}</p>
+                    <p style="color: var(--text-secondary); font-size: 12px;">${currentUser?.email || ''}</p>
+                </div>
+                <button onclick="window.location.href='funds.html'" style="width: 100%; padding: 12px; text-align: right; background: none; border: none; color: var(--text-primary); cursor: pointer;">
+                    <i class="fas fa-wallet"></i> شحن الرصيد
+                </button>
+                <button onclick="window.location.href='activation.html'" style="width: 100%; padding: 12px; text-align: right; background: none; border: none; color: var(--text-primary); cursor: pointer;">
+                    <i class="fas fa-history"></i> سجل التفعيلات
+                </button>
+                <button onclick="logout()" style="width: 100%; padding: 12px; text-align: right; background: none; border: none; color: var(--danger); cursor: pointer;">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+            `;
+            
+            document.body.appendChild(menu);
+            
+            setTimeout(() => {
+                document.addEventListener('click', function closeMenu(e) {
+                    if (!menu.contains(e.target)) {
+                        menu.remove();
+                        document.removeEventListener('click', closeMenu);
+                    }
+                });
+            }, 100);
+        };
+
+        window.logout = async () => {
+            await auth.signOut();
+            localStorage.removeItem('simify_user');
+            window.location.href = 'auth.html';
+        };
+
+        // ==================== تهيئة الصفحة ====================
+        async function initDashboard() {
+            AOS.init({ duration: 500, once: true });
+            
+            // التحقق من تسجيل الدخول
+            auth.onAuthStateChanged(async (user) => {
+                if (!user) {
+                    window.location.href = 'auth.html';
+                    return;
+                }
+                
+                await loadUserData();
+                await fetchServices();
+                
+                // التحقق من وجود خدمة محددة في الرابط
+                const urlParams = new URLSearchParams(window.location.search);
+                const serviceParam = urlParams.get('service');
+                if (serviceParam) {
+                    setTimeout(() => selectService(serviceParam), 500);
+                }
+            });
+        }
+
+        initDashboard();
+    </script>
+</body>
+</html>

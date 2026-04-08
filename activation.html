@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#3b82f6">
+    <title>سجل التفعيلات | Simify</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    
+    <style>
+        /* ==================== نظام التصميم ==================== */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --accent: #00f2fe;
+            --bg-primary: #020617;
+            --bg-card: #0f172a;
+            --bg-hover: rgba(59, 130, 246, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --radius-xs: 6px;
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+            --transition: 0.2s ease;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .container {
+            padding: 0 14px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* ==================== الهيدر ==================== */
+        .header {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .logo span { color: var(--primary); }
+        .logo i { color: var(--primary); font-size: 20px; }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .balance-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .balance-card i { color: var(--primary); font-size: 16px; }
+        .balance-amount {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--accent);
+        }
+        .balance-amount small {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* ==================== عنوان الصفحة والإحصائيات ==================== */
+        .page-header {
+            padding: 20px 0 12px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .page-title i {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .stats-mini {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .stat-mini-card {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .stat-mini-card i {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .stat-mini-card .value {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .stat-mini-card .label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* ==================== علامات التبويب ==================== */
+        .tabs-container {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: var(--radius-full);
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .tab-btn i {
+            font-size: 16px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .tab-btn .count-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+        }
+
+        .tab-btn.active .count-badge {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* ==================== شريط البحث ==================== */
+        .search-section {
+            padding: 12px 0;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 14px 46px 14px 16px;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .search-wrapper input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-wrapper input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        /* ==================== قائمة التفعيلات ==================== */
+        .activations-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .activation-card {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            transition: all var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activation-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.1);
+        }
+
+        .activation-card:active {
+            transform: scale(0.98);
+        }
+
+        /* شريط الحالة */
+        .activation-status-bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background: var(--border-color);
+        }
+
+        .activation-status-bar.completed {
+            background: var(--success);
+        }
+
+        .activation-status-bar.waiting {
+            background: var(--warning);
+        }
+
+        .activation-status-bar.cancelled {
+            background: var(--danger);
+        }
+
+        .activation-status-bar.active {
+            background: var(--primary);
+        }
+
+        .activation-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .service-icon-wrapper {
+            width: 52px;
+            height: 52px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .service-icon-wrapper i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .activation-info {
+            flex: 1;
+        }
+
+        .activation-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .activation-title h3 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .status-badge.completed {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .status-badge.waiting {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .status-badge.cancelled {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        .status-badge.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+        }
+
+        .activation-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .activation-meta i {
+            color: var(--primary);
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        /* قسم الرقم */
+        .phone-number-section {
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .phone-number-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .phone-number-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent);
+            direction: ltr;
+            text-align: right;
+        }
+
+        .copy-number-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .copy-number-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* قسم رمز OTP */
+        .otp-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .otp-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .otp-header i {
+            color: var(--success);
+            font-size: 18px;
+        }
+
+        .otp-header span {
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .otp-code-display {
+            text-align: center;
+        }
+
+        .otp-code {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--success);
+            letter-spacing: 12px;
+            direction: ltr;
+            margin: 10px 0;
+        }
+
+        .otp-message {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .copy-otp-btn {
+            background: var(--success);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 10px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* قسم الرسالة الكاملة */
+        .full-message-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin: 12px 0;
+        }
+
+        .full-message-label {
+            color: var(--text-secondary);
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .full-message-text {
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        /* قسم الوقت والتكلفة */
+        .activation-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .activation-time {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .activation-cost {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .activation-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-size: 13px;
+        }
+
+        .action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .action-btn.danger:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* ==================== تفعيل نشط (قيد الانتظار) ==================== */
+        .active-activation-card {
+            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), var(--bg-card));
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: var(--radius-full);
+            transition: width 1s linear;
+        }
+
+        .countdown-timer {
+            font-weight: 700;
+            color: var(--warning);
+            font-size: 16px;
+        }
+
+        .polling-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* ==================== حالات فارغة ==================== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 24px;
+            background: rgba(59, 130, 246, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 44px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        /* ==================== مودال التفاصيل ==================== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            padding: 28px 20px 20px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* ==================== شريط التنقل السفلي ==================== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid var(--border-color);
+            padding: 6px 16px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 99;
+        }
+
+        .bottom-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            font-size: 10px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all var(--transition);
+        }
+
+        .bottom-nav a i {
+            font-size: 20px;
+        }
+
+        .bottom-nav a.active {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* ==================== Toast ==================== */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { border-right: 4px solid var(--success); }
+        .toast.error { border-right: 4px solid var(--danger); }
+        .toast i { font-size: 24px; }
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--danger); }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 700; margin-bottom: 2px; }
+        .toast-message { font-size: 13px; color: var(--text-secondary); }
+        .toast-close { color: var(--text-muted); cursor: pointer; font-size: 18px; }
+
+        /* ==================== Loader ==================== */
+        .loader-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ==================== أدوات مساعدة ==================== */
+        .d-none { display: none !important; }
+        .d-flex { display: flex !important; }
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 12px; }
+        .mb-2 { margin-bottom: 12px; }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="container">
+            <div class="header-row">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-sim-card"></i>
+                    SIMIFY<span>.</span>
+                </a>
+                <div class="user-info">
+                    <div class="balance-card" onclick="window.location.href='funds.html'">
+                        <i class="fas fa-wallet"></i>
+                        <span class="balance-amount" id="userBalance">0.00 <small>ج.م</small></span>
+                    </div>
+                    <div class="user-avatar" id="userAvatar" onclick="showUserMenu()">
+                        <span id="userInitial">م</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- عنوان الصفحة والإحصائيات -->
+            <div class="page-header">
+                <div class="page-title">
+                    <i class="fas fa-history"></i>
+                    <h1>سجل التفعيلات</h1>
+                </div>
+                
+                <div class="stats-mini">
+                    <div class="stat-mini-card">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="value" id="totalCompleted">0</div>
+                        <div class="label">تفعيل مكتمل</div>
+                    </div>
+                    <div class="stat-mini-card">
+                        <i class="fas fa-clock"></i>
+                        <div class="value" id="totalActive">0</div>
+                        <div class="label">قيد الانتظار</div>
+                    </div>
+                    <div class="stat-mini-card">
+                        <i class="fas fa-coins"></i>
+                        <div class="value" id="totalSpent">0</div>
+                        <div class="label">إجمالي الإنفاق</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- علامات التبويب -->
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchTab('all')">
+                    <i class="fas fa-list"></i>
+                    <span>الكل</span>
+                    <span class="count-badge" id="allCount">0</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('active')">
+                    <i class="fas fa-sync-alt fa-spin"></i>
+                    <span>النشطة</span>
+                    <span class="count-badge" id="activeCount">0</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('completed')">
+                    <i class="fas fa-check-circle"></i>
+                    <span>المكتملة</span>
+                    <span class="count-badge" id="completedCount">0</span>
+                </button>
+            </div>
+
+            <!-- شريط البحث -->
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="ابحث برقم الهاتف أو اسم الخدمة..." oninput="filterActivations()">
+                </div>
+            </div>
+
+            <!-- قائمة التفعيلات -->
+            <div class="activations-list" id="activationsList">
+                <div class="loading-state">
+                    <div class="loader-spinner"></div>
+                    <p style="color: var(--text-secondary);">جاري تحميل سجل التفعيلات...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- مودال التفاصيل -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">تفاصيل التفعيل</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modalBody">
+                <!-- سيتم ملؤها ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a href="dashboard.html"><i class="fas fa-columns"></i><span>الخدمات</span></a>
+        <a href="activation.html" class="active"><i class="fas fa-history"></i><span>التفعيلات</span></a>
+        <a href="funds.html"><i class="fas fa-wallet"></i><span>الرصيد</span></a>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">نجاح</div>
+            <div class="toast-message" id="toastMessage">تمت العملية بنجاح</div>
+        </div>
+        <i class="fas fa-times toast-close" onclick="hideToast()"></i>
+    </div>
+
+    <!-- Firebase & Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // ==================== Firebase Configuration ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfkuAvySUDyzmMWHFMFlx1FL0gGFYT3Ek",
+            authDomain: "takhmen1.firebaseapp.com",
+            projectId: "takhmen1",
+            storageBucket: "takhmen1.firebasestorage.app",
+            messagingSenderId: "558818074473",
+            appId: "1:558818074473:web:907ff68e4c3fabb7fd27f8"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ==================== API Configuration ====================
+        const API_BASE_URL = 'https://simify-back.vercel.app/api';
+
+        // ==================== State ====================
+        let currentUser = null;
+        let userBalance = 0;
+        let allActivations = [];
+        let filteredActivations = [];
+        let currentTab = 'all';
+        let searchQuery = '';
+        let pollingIntervals = new Map();
+
+        // ==================== أسماء الخدمات بالعربية ====================
+        const serviceNamesAr = {
+            'tg': 'تيليجرام', 'wa': 'واتساب', 'wb': 'واتساب بزنس', 'vk': 'فكونتاكتي',
+            'ok': 'أودنوكلاسنيكي', 'fb': 'فيسبوك', 'ig': 'إنستجرام', 'tw': 'تويتر',
+            'gm': 'جوجل/Gmail', 'ml': 'مايل.رو', 'ya': 'ياندكس', 'ol': 'أوت لوك',
+            'ma': 'ميل.كوم', 'pp': 'باي بال', 'py': 'بايونير', 'sk': 'سكريل',
+            'go': 'جوجل فويس', 'am': 'أمازون', 'az': 'علي بابا', 'nv': 'نافير'
+        };
+
+        // ==================== دوال المساعدة ====================
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            const icon = toast.querySelector('i');
+            
+            toast.classList.remove('show', 'success', 'error');
+            toast.classList.add(type, 'show');
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else {
+                icon.className = 'fas fa-exclamation-circle';
+            }
+            
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        window.hideToast = () => document.getElementById('toast').classList.remove('show');
+
+        function formatPrice(price) {
+            return parseFloat(price).toFixed(2);
+        }
+
+        function formatPhoneNumber(number) {
+            if (!number) return '';
+            return number.replace(/(\+\d{1,3})(\d{3})(\d{3})(\d{4})/, '$1 $2 $3 $4');
+        }
+
+        function formatDateTime(timestamp) {
+            if (!timestamp) return '';
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            
+            if (diff < 60000) return 'الآن';
+            if (diff < 3600000) return `قبل ${Math.floor(diff / 60000)} دقيقة`;
+            if (diff < 86400000) return `قبل ${Math.floor(diff / 3600000)} ساعة`;
+            
+            return date.toLocaleDateString('ar-EG', {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function getServiceName(code) {
+            return serviceNamesAr[code] || code?.toUpperCase() || 'خدمة';
+        }
+
+        function getServiceIcon(code) {
+            const icons = {
+                'tg': 'paper-plane', 'wa': 'comment', 'wb': 'comment-dots',
+                'vk': 'vk', 'fb': 'facebook', 'ig': 'instagram',
+                'gm': 'envelope', 'ml': 'envelope-open', 'ya': 'envelope',
+                'pp': 'paypal', 'am': 'shopping-cart', 'go': 'phone'
+            };
+            return icons[code] || 'globe';
+        }
+
+        // ==================== تحميل بيانات المستخدم ====================
+        async function loadUserData() {
+            try {
+                const user = auth.currentUser;
+                if (!user) {
+                    window.location.href = 'auth.html';
+                    return;
+                }
+
+                currentUser = user;
+                document.getElementById('userInitial').textContent = 
+                    (user.displayName?.[0] || user.email?.[0] || 'م').toUpperCase();
+
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    userBalance = userDoc.data().balance || 0;
+                    document.getElementById('userBalance').innerHTML = `${userBalance.toFixed(2)} <small>ج.م</small>`;
+                }
+
+            } catch (error) {
+                console.error('Error loading user:', error);
+            }
+        }
+
+        // ==================== تحميل التفعيلات ====================
+        async function loadActivations() {
+            try {
+                // جلب من localStorage أولاً
+                const localHistory = JSON.parse(localStorage.getItem('simify_activations') || '[]');
+                
+                // جلب التفعيلات النشطة من الباك إند
+                const activeResponse = await fetch(`${API_BASE_URL}/active-activations`);
+                const activeData = await activeResponse.json();
+                
+                let activeActivations = [];
+                if (activeData.success && activeData.activations) {
+                    if (Array.isArray(activeData.activations)) {
+                        activeActivations = activeData.activations;
+                    } else if (activeData.activations.data) {
+                        activeActivations = activeData.activations.data;
+                    }
+                }
+                
+                // دمج التفعيلات
+                allActivations = [
+                    ...activeActivations.map(a => ({
+                        ...a,
+                        status: 'active',
+                        id: a.activationId || a.id,
+                        service: a.serviceCode || a.service,
+                        number: a.phoneNumber || a.number,
+                        cost: a.activationCost || a.price,
+                        startTime: a.activationTime || new Date().toISOString()
+                    })),
+                    ...localHistory.filter(h => h.status !== 'active')
+                ];
+                
+                // بدء فحص التفعيلات النشطة
+                startPollingForActive();
+                
+                updateStats();
+                filterActivations();
+                
+            } catch (error) {
+                console.error('Error loading activations:', error);
+                // استخدام البيانات المحلية فقط
+                allActivations = JSON.parse(localStorage.getItem('simify_activations') || '[]');
+                updateStats();
+                filterActivations();
+            }
+        }
+
+        // ==================== فحص التفعيلات النشطة ====================
+        function startPollingForActive() {
+            const activeActivations = allActivations.filter(a => a.status === 'active');
+            
+            activeActivations.forEach(activation => {
+                if (!pollingIntervals.has(activation.id)) {
+                    const interval = setInterval(() => checkActivationStatus(activation.id), 3000);
+                    pollingIntervals.set(activation.id, interval);
+                }
+            });
+        }
+
+        async function checkActivationStatus(activationId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/get-sms?activationId=${activationId}`);
+                const data = await response.json();
+                
+                if (data.success && data.code) {
+                    // تم استلام الرمز
+                    updateActivationWithCode(activationId, data.code, data.text);
+                }
+            } catch (error) {
+                console.error('Error checking status:', error);
+            }
+        }
+
+        function updateActivationWithCode(activationId, code, fullMessage) {
+            const index = allActivations.findIndex(a => a.id === activationId);
+            if (index !== -1) {
+                allActivations[index].status = 'completed';
+                allActivations[index].code = code;
+                allActivations[index].fullMessage = fullMessage;
+                allActivations[index].completedAt = new Date().toISOString();
+                
+                // إيقاف الفحص
+                if (pollingIntervals.has(activationId)) {
+                    clearInterval(pollingIntervals.get(activationId));
+                    pollingIntervals.delete(activationId);
+                }
+                
+                // حفظ في localStorage
+                saveToLocalStorage();
+                
+                // تحديث العرض
+                updateStats();
+                filterActivations();
+                
+                // إشعار
+                showToast('success', 'وصل الرمز!', `تم استلام رمز ${getServiceName(allActivations[index].service)}`);
+            }
+        }
+
+        function saveToLocalStorage() {
+            const toSave = allActivations.filter(a => a.status !== 'active');
+            localStorage.setItem('simify_activations', JSON.stringify(toSave.slice(0, 100)));
+        }
+
+        // ==================== تحديث الإحصائيات ====================
+        function updateStats() {
+            const completed = allActivations.filter(a => a.status === 'completed');
+            const active = allActivations.filter(a => a.status === 'active');
+            const totalSpent = allActivations.reduce((sum, a) => sum + (parseFloat(a.cost) || 0), 0);
+            
+            document.getElementById('totalCompleted').textContent = completed.length;
+            document.getElementById('totalActive').textContent = active.length;
+            document.getElementById('totalSpent').textContent = formatPrice(totalSpent) + ' ج.م';
+            
+            document.getElementById('allCount').textContent = allActivations.length;
+            document.getElementById('activeCount').textContent = active.length;
+            document.getElementById('completedCount').textContent = completed.length;
+        }
+
+        // ==================== تصفية وبحث ====================
+        function filterActivations() {
+            let filtered = allActivations;
+            
+            // تصفية حسب التبويب
+            if (currentTab === 'active') {
+                filtered = filtered.filter(a => a.status === 'active');
+            } else if (currentTab === 'completed') {
+                filtered = filtered.filter(a => a.status === 'completed');
+            }
+            
+            // تصفية حسب البحث
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                filtered = filtered.filter(a => 
+                    (a.number && a.number.includes(query)) ||
+                    (getServiceName(a.service).toLowerCase().includes(query)) ||
+                    (a.code && a.code.includes(query))
+                );
+            }
+            
+            // ترتيب: النشطة أولاً ثم الأحدث
+            filtered.sort((a, b) => {
+                if (a.status === 'active' && b.status !== 'active') return -1;
+                if (a.status !== 'active' && b.status === 'active') return 1;
+                return new Date(b.startTime || b.createdAt) - new Date(a.startTime || a.createdAt);
+            });
+            
+            filteredActivations = filtered;
+            displayActivations();
+        }
+
+        window.switchTab = (tab) => {
+            currentTab = tab;
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(tab === 'all' ? 'الكل' : tab === 'active' ? 'النشطة' : 'المكتملة')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            filterActivations();
+        };
+
+        window.filterActivations = () => {
+            searchQuery = document.getElementById('searchInput').value;
+            filterActivations();
+        };
+
+        // ==================== عرض التفعيلات ====================
+        function displayActivations() {
+            const container = document.getElementById('activationsList');
+            
+            if (filteredActivations.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-${currentTab === 'active' ? 'clock' : 'inbox'}"></i>
+                        </div>
+                        <h3>${currentTab === 'active' ? 'لا توجد تفعيلات نشطة' : 'لا توجد تفعيلات بعد'}</h3>
+                        <p>${currentTab === 'active' ? 'جميع التفعيلات مكتملة' : 'ابدأ بشراء رقم من صفحة الخدمات'}</p>
+                        <button class="btn btn-primary" onclick="window.location.href='dashboard.html'">
+                            <i class="fas fa-shopping-cart"></i>
+                            شراء رقم جديد
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredActivations.map(activation => {
+                const isActive = activation.status === 'active';
+                const isCompleted = activation.status === 'completed';
+                const serviceName = getServiceName(activation.service);
+                const icon = getServiceIcon(activation.service);
+                
+                return `
+                    <div class="activation-card ${isActive ? 'active-activation-card' : ''}" onclick="showDetails('${activation.id}')">
+                        <div class="activation-status-bar ${activation.status}"></div>
+                        
+                        <div class="activation-header">
+                            <div class="service-icon-wrapper">
+                                <i class="fas fa-${icon}"></i>
+                            </div>
+                            <div class="activation-info">
+                                <div class="activation-title">
+                                    <h3>${serviceName}</h3>
+                                    <span class="status-badge ${activation.status}">
+                                        ${isActive ? 'قيد الانتظار' : isCompleted ? 'مكتمل' : 'ملغي'}
+                                    </span>
+                                </div>
+                                <div class="activation-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> ${activation.country?.name || 'دولة'}</span>
+                                    <span><i class="fas fa-tag"></i> ${formatPrice(activation.cost)} ج.م</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="phone-number-section">
+                            <div>
+                                <div class="phone-number-label">رقم الهاتف</div>
+                                <div class="phone-number-value">${formatPhoneNumber(activation.number)}</div>
+                            </div>
+                            <button class="copy-number-btn" onclick="event.stopPropagation(); copyToClipboard('${activation.number}')">
+                                <i class="far fa-copy"></i> نسخ
+                            </button>
+                        </div>
+                        
+                        ${isCompleted && activation.code ? `
+                            <div class="otp-section">
+                                <div class="otp-header">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>تم استلام الرمز</span>
+                                </div>
+                                <div class="otp-code-display">
+                                    <div class="otp-code">${activation.code}</div>
+                                    <button class="copy-otp-btn" onclick="event.stopPropagation(); copyToClipboard('${activation.code}')">
+                                        <i class="far fa-copy"></i> نسخ الرمز
+                                    </button>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${isActive ? `
+                            <div class="progress-indicator">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${calculateProgress(activation.startTime)}%"></div>
+                                </div>
+                                <div class="countdown-timer" id="timer-${activation.id}">20:00</div>
+                            </div>
+                            <div class="polling-indicator">
+                                <span class="pulse-dot"></span>
+                                <span>جاري انتظار الرمز... (يتم التحقق كل 3 ثوان)</span>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="activation-footer">
+                            <div class="activation-time">
+                                <i class="far fa-clock"></i>
+                                ${formatDateTime(activation.startTime)}
+                            </div>
+                            <div class="activation-actions">
+                                ${isActive ? `
+                                    <button class="action-btn danger" onclick="event.stopPropagation(); cancelActivation('${activation.id}')">
+                                        <i class="fas fa-times"></i> إلغاء
+                                    </button>
+                                ` : ''}
+                                <button class="action-btn" onclick="event.stopPropagation(); showDetails('${activation.id}')">
+                                    <i class="fas fa-eye"></i> تفاصيل
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // بدء التايمرات للتفعيلات النشطة
+            filteredActivations.filter(a => a.status === 'active').forEach(activation => {
+                startCardTimer(activation);
+            });
+        }
+
+        function calculateProgress(startTime) {
+            const start = new Date(startTime);
+            const now = new Date();
+            const elapsed = (now - start) / 1000;
+            const total = 20 * 60; // 20 دقيقة
+            return Math.min(100, (elapsed / total) * 100);
+        }
+
+        function startCardTimer(activation) {
+            const timerEl = document.getElementById(`timer-${activation.id}`);
+            if (!timerEl) return;
+            
+            const startTime = new Date(activation.startTime);
+            const endTime = new Date(startTime.getTime() + 20 * 60 * 1000);
+            
+            const interval = setInterval(() => {
+                const remaining = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
+                
+                if (remaining <= 0) {
+                    clearInterval(interval);
+                    timerEl.textContent = '00:00';
+                } else {
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = remaining % 60;
+                    timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // ==================== عرض التفاصيل ====================
+        window.showDetails = (activationId) => {
+            const activation = allActivations.find(a => a.id === activationId);
+            if (!activation) return;
+            
+            const modal = document.getElementById('detailsModal');
+            const modalBody = document.getElementById('modalBody');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            modalTitle.textContent = `تفاصيل ${getServiceName(activation.service)}`;
+            
+            modalBody.innerHTML = `
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div class="service-icon-wrapper" style="margin: 0 auto 12px; width: 64px; height: 64px;">
+                        <i class="fas fa-${getServiceIcon(activation.service)}" style="font-size: 32px;"></i>
+                    </div>
+                    <h3 style="font-size: 20px; margin-bottom: 4px;">${getServiceName(activation.service)}</h3>
+                    <p style="color: var(--text-secondary);">${activation.country?.name || 'دولة'}</p>
+                </div>
+                
+                <div class="phone-number-section">
+                    <div>
+                        <div class="phone-number-label">رقم الهاتف</div>
+                        <div class="phone-number-value">${formatPhoneNumber(activation.number)}</div>
+                    </div>
+                    <button class="copy-number-btn" onclick="copyToClipboard('${activation.number}')">
+                        <i class="far fa-copy"></i> نسخ
+                    </button>
+                </div>
+                
+                ${activation.code ? `
+                    <div class="otp-section">
+                        <div class="otp-header">
+                            <i class="fas fa-check-circle"></i>
+                            <span>رمز التفعيل (OTP)</span>
+                        </div>
+                        <div class="otp-code-display">
+                            <div class="otp-code">${activation.code}</div>
+                            <button class="copy-otp-btn" onclick="copyToClipboard('${activation.code}')">
+                                <i class="far fa-copy"></i> نسخ الرمز
+                            </button>
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${activation.fullMessage ? `
+                    <div class="full-message-section">
+                        <div class="full-message-label">الرسالة الكاملة</div>
+                        <div class="full-message-text">${activation.fullMessage}</div>
+                    </div>
+                ` : ''}
+                
+                <div style="background: var(--bg-primary); border-radius: var(--radius-md); padding: 14px; margin-top: 16px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="color: var(--text-secondary);">التكلفة</span>
+                        <span style="font-weight: 700; color: var(--primary);">${formatPrice(activation.cost)} ج.م</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="color: var(--text-secondary);">وقت الشراء</span>
+                        <span>${formatDateTime(activation.startTime)}</span>
+                    </div>
+                    ${activation.completedAt ? `
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary);">وقت الاستلام</span>
+                            <span>${formatDateTime(activation.completedAt)}</span>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="closeModal()">
+                        إغلاق
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('show');
+        };
+
+        window.closeModal = () => {
+            document.getElementById('detailsModal').classList.remove('show');
+        };
+
+        // ==================== إلغاء التفعيل ====================
+        window.cancelActivation = async (activationId) => {
+            if (!confirm('هل أنت متأكد من إلغاء هذا التفعيل؟ سيتم استرداد الرصيد.')) return;
+            
+            const activation = allActivations.find(a => a.id === activationId);
+            if (!activation) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/cancel-number`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        uid: currentUser.uid,
+                        activationId,
+                        refundAmount: activation.cost
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // تحديث الحالة
+                    activation.status = 'cancelled';
+                    
+                    // إيقاف الفحص
+                    if (pollingIntervals.has(activationId)) {
+                        clearInterval(pollingIntervals.get(activationId));
+                        pollingIntervals.delete(activationId);
+                    }
+                    
+                    // تحديث الرصيد
+                    userBalance = data.newBalance;
+                    document.getElementById('userBalance').innerHTML = `${userBalance.toFixed(2)} <small>ج.م</small>`;
+                    
+                    saveToLocalStorage();
+                    updateStats();
+                    filterActivations();
+                    
+                    showToast('success', 'تم الإلغاء', 'تم إلغاء التفعيل واسترداد الرصيد');
+                } else {
+                    showToast('error', 'خطأ', data.error || 'حدث خطأ في الإلغاء');
+                }
+            } catch (error) {
+                showToast('error', 'خطأ', 'حدث خطأ في الاتصال');
+            }
+        };
+
+        // ==================== نسخ النص ====================
+        window.copyToClipboard = (text) => {
+            navigator.clipboard?.writeText(text).then(() => {
+                showToast('success', 'تم النسخ', 'تم نسخ النص إلى الحافظة');
+            }).catch(() => {
+                // Fallback
+                const input = document.createElement('input');
+                input.value = text;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('success', 'تم النسخ', 'تم نسخ النص إلى الحافظة');
+            });
+        };
+
+        // ==================== قائمة المستخدم ====================
+        window.showUserMenu = () => {
+            const menu = document.createElement('div');
+            menu.style.cssText = `
+                position: fixed; top: 70px; left: 20px; background: var(--bg-card);
+                border: 1px solid var(--border-color); border-radius: var(--radius-md);
+                padding: 8px; z-index: 1000; min-width: 180px;
+            `;
+            menu.innerHTML = `
+                <div style="padding: 12px; border-bottom: 1px solid var(--border-color);">
+                    <p style="font-weight: 700;">${currentUser?.displayName || 'مستخدم'}</p>
+                    <p style="color: var(--text-secondary); font-size: 12px;">${currentUser?.email || ''}</p>
+                </div>
+                <button onclick="window.location.href='dashboard.html'" style="width: 100%; padding: 12px; text-align: right; background: none; border: none; color: var(--text-primary); cursor: pointer;">
+                    <i class="fas fa-shopping-cart"></i> شراء رقم جديد
+                </button>
+                <button onclick="window.location.href='funds.html'" style="width: 100%; padding: 12px; text-align: right; background: none; border: none; color: var(--text-primary); cursor: pointer;">
+                    <i class="fas fa-wallet"></i> شحن الرصيد
+                </button>
+                <button onclick="logout()" style="width: 100%; padding: 12px; text-align: right; background: none; border: none; color: var(--danger); cursor: pointer;">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+            `;
+            
+            document.body.appendChild(menu);
+            
+            setTimeout(() => {
+                document.addEventListener('click', function closeMenu(e) {
+                    if (!menu.contains(e.target)) {
+                        menu.remove();
+                        document.removeEventListener('click', closeMenu);
+                    }
+                });
+            }, 100);
+        };
+
+        window.logout = async () => {
+            // إيقاف جميع فترات الفحص
+            pollingIntervals.forEach(interval => clearInterval(interval));
+            pollingIntervals.clear();
+            
+            await auth.signOut();
+            localStorage.removeItem('simify_user');
+            window.location.href = 'auth.html';
+        };
+
+        // ==================== تهيئة الصفحة ====================
+        async function initActivation() {
+            AOS.init({ duration: 500, once: true });
+            
+            auth.onAuthStateChanged(async (user) => {
+                if (!user) {
+                    window.location.href = 'auth.html';
+                    return;
+                }
+                
+                await loadUserData();
+                await loadActivations();
+            });
+        }
+
+        // تنظيف عند مغادرة الصفحة
+        window.addEventListener('beforeunload', () => {
+            pollingIntervals.forEach(interval => clearInterval(interval));
+        });
+
+        initActivation();
+    </script>
+</body>
+</html>
