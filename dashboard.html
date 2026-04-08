@@ -2,24 +2,118 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>الخدمات | Simify</title>
     
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     
     <style>
+        /* ==================== نظام التصميم المتكامل ==================== */
         :root {
+            /* الألوان الأساسية */
             --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #60a5fa;
+            --primary-soft: rgba(59, 130, 246, 0.12);
+            
             --accent: #00f2fe;
-            --bg-dark: #020617;
-            --bg-card: #0f172a;
+            --accent-secondary: #4facfe;
+            --accent-gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            
+            /* ألوان الخلفية - الوضع الليلي */
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-tertiary: #1e293b;
+            --bg-card: rgba(15, 23, 42, 0.95);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-hover: rgba(59, 130, 246, 0.08);
+            
+            /* ألوان النص */
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
-            --border-color: rgba(255,255,255,0.06);
+            --text-muted: #64748b;
+            --text-light: #cbd5e1;
+            
+            /* ألوان الحدود */
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-light: rgba(255, 255, 255, 0.1);
+            --border-primary: rgba(59, 130, 246, 0.25);
+            
+            /* ألوان الحالات */
             --success: #10b981;
+            --success-soft: rgba(16, 185, 129, 0.12);
+            --warning: #f59e0b;
+            --warning-soft: rgba(245, 158, 11, 0.12);
             --danger: #ef4444;
+            --danger-soft: rgba(239, 68, 68, 0.12);
+            --info: #06b6d4;
+            --info-soft: rgba(6, 182, 212, 0.12);
+            
+            /* الظلال */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 8px 24px rgba(59, 130, 246, 0.12);
+            --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.2);
+            
+            /* الأبعاد */
+            --radius-xs: 4px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --radius-2xl: 32px;
+            --radius-full: 9999px;
+            
+            /* التحريكات */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* الخطوط */
+            --font-3xs: 9px;
+            --font-2xs: 10px;
+            --font-xs: 11px;
+            --font-sm: 13px;
+            --font-base: 14px;
+            --font-md: 15px;
+            --font-lg: 16px;
+            --font-xl: 18px;
+            --font-2xl: 20px;
+            --font-3xl: 24px;
+            --font-4xl: 28px;
+            --font-5xl: 32px;
+        }
+
+        /* الوضع النهاري */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e2e8f0;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-glass: rgba(255, 255, 255, 0.6);
+            --bg-hover: rgba(59, 130, 246, 0.06);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --text-light: #334155;
+            
+            --border-color: rgba(0, 0, 0, 0.06);
+            --border-light: rgba(0, 0, 0, 0.1);
+            --border-primary: rgba(59, 130, 246, 0.2);
+            
+            --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 24px rgba(59, 130, 246, 0.08);
+            --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -30,539 +124,1261 @@
         }
 
         body {
-            background: var(--bg-dark);
+            background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 16px 16px 80px;
+            padding-bottom: 80px;
+            transition: background var(--transition-base), color var(--transition-base);
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .container { max-width: 500px; margin: 0 auto; }
+        /* زخارف خلفية */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-        /* هيدر */
+        .bg-decoration::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -30%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 25s ease-in-out infinite;
+        }
+
+        .bg-decoration::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 30s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-20px, 15px) rotate(2deg); }
+            66% { transform: translate(15px, -20px) rotate(-2deg); }
+        }
+
+        .container {
+            padding: 0 14px;
+            max-width: 520px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ==================== شريط العروض ==================== */
+        .promo-bar {
+            background: var(--accent-gradient);
+            color: #000;
+            text-align: center;
+            padding: 7px 14px;
+            font-size: var(--font-xs);
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .promo-bar i { font-size: 12px; animation: pulse 2s ease-in-out infinite; }
+        .promo-bar strong { background: rgba(0,0,0,0.1); padding: 2px 8px; border-radius: var(--radius-full); }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.8; }
+        }
+
+        /* ==================== الهيدر ==================== */
         .header {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            transition: all var(--transition-base);
+        }
+
+        .header-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
         }
+
         .logo {
             font-size: 24px;
             font-weight: 900;
             color: var(--text-primary);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         .logo span { color: var(--primary); }
-        .balance {
-            background: var(--bg-card);
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-        .balance i { color: var(--primary); margin-left: 6px; }
+        .logo i { color: var(--primary); font-size: 20px; }
 
-        /* بحث */
-        .search-box {
-            position: relative;
-            margin-bottom: 16px;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .search-box i {
-            position: absolute;
-            right: 16px;
-            top: 14px;
+
+        .theme-toggle-btn {
+            width: 42px;
+            height: 42px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 18px;
+            transition: all var(--transition-fast);
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .balance-badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .balance-badge:hover {
+            border-color: var(--primary);
+            background: var(--bg-hover);
+        }
+
+        .balance-badge i { color: var(--primary); font-size: 16px; }
+        .balance-amount {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--accent);
+        }
+        .balance-amount small {
+            font-size: 11px;
+            font-weight: 400;
             color: var(--text-secondary);
         }
-        .search-box input {
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* ==================== شريط البحث ==================== */
+        .search-section {
+            padding: 18px 0 12px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        .search-wrapper input {
             width: 100%;
             padding: 14px 48px 14px 16px;
             background: var(--bg-card);
             border: 1.5px solid var(--border-color);
-            border-radius: 40px;
+            border-radius: var(--radius-lg);
             color: var(--text-primary);
             font-size: 15px;
+            transition: border-color var(--transition-fast);
         }
 
-        /* تصنيفات */
-        .categories {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 8px 0;
-            margin-bottom: 20px;
-        }
-        .category {
-            padding: 8px 18px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            color: var(--text-secondary);
-            font-size: 13px;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-        .category.active {
-            background: var(--primary);
-            color: white;
+        .search-wrapper input:focus {
+            outline: none;
             border-color: var(--primary);
         }
 
-        /* عنوان القسم */
-        .section-title {
+        .search-wrapper input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        /* ==================== ترويسة الأقسام ==================== */
+        .section-header {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             margin-bottom: 16px;
         }
-        .section-title h3 { font-size: 18px; }
-        .section-title span { color: var(--text-secondary); font-size: 13px; }
 
-        /* شبكة الخدمات */
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .service-card {
-            background: var(--bg-card);
-            border: 1.5px solid var(--border-color);
-            border-radius: 20px;
-            padding: 20px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .service-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-        .service-card i {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-        .service-card h4 {
-            font-size: 15px;
-            margin-bottom: 4px;
-        }
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        .popular-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--primary);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 9px;
+        .section-header h3 {
+            font-size: var(--font-xl);
             font-weight: 700;
-        }
-
-        /* شاشة الدول */
-        .countries-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .country-card {
-            background: var(--bg-card);
-            border: 1.5px solid var(--border-color);
-            border-radius: 16px;
-            padding: 16px 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            cursor: pointer;
+            gap: 8px;
         }
-        .country-flag {
-            width: 42px;
-            height: 42px;
-            background: rgba(59,130,246,0.1);
-            border-radius: 12px;
+
+        .section-header h3 i { color: var(--primary); }
+        .section-count {
+            color: var(--text-secondary);
+            font-size: var(--font-sm);
+        }
+
+        /* ==================== بطاقات الخدمات ==================== */
+        .services-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .service-card-main {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 20px 18px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform var(--transition-slow);
+        }
+
+        .service-card-main:hover::before { transform: scaleX(1); }
+
+        .service-card-main:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-header-main {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .service-icon-main {
+            width: 64px;
+            height: 64px;
+            background: var(--primary-soft);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
-            font-size: 20px;
+            font-size: 32px;
+            transition: all var(--transition-base);
         }
-        .country-info h4 { font-size: 15px; margin-bottom: 2px; }
-        .country-info p { color: var(--text-secondary); font-size: 11px; }
-        .country-price { font-weight: 700; color: var(--accent); }
 
-        /* رجوع */
-        .back-btn {
+        .service-card-main:hover .service-icon-main {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .service-info-main {
+            flex: 1;
+        }
+
+        .service-info-main h4 {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .service-info-main .service-code {
+            color: var(--text-secondary);
+            font-size: var(--font-xs);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .service-stats {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-badge {
             display: flex;
             align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+            font-size: var(--font-xs);
+        }
+
+        .stat-badge i { color: var(--primary); }
+
+        .countries-preview-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .country-preview-item {
+            text-align: center;
+            padding: 8px 4px;
+            background: var(--bg-glass);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .country-preview-item:hover {
+            background: var(--primary-soft);
+        }
+
+        .country-flag-preview {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .country-name-preview {
+            font-size: var(--font-2xs);
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .country-price-preview {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: var(--font-sm);
+        }
+
+        .more-countries-btn {
+            text-align: center;
+            margin-top: 12px;
             color: var(--primary);
-            margin-bottom: 16px;
+            font-size: var(--font-sm);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             cursor: pointer;
         }
 
-        /* تحميل */
-        .loader {
+        /* ==================== حالات التحميل والفارغة ==================== */
+        .loading-container {
             text-align: center;
-            padding: 60px;
+            padding: 60px 20px;
+        }
+
+        .loader-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 24px;
+            background: var(--primary-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 40px;
+        }
+
+        .empty-state h4 {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            font-size: var(--font-sm);
+            margin-bottom: 24px;
+        }
+
+        /* ==================== النافذة المنبثقة (Modal) ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content-countries {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+            width: 100%;
+            max-width: 520px;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 24px 20px 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .modal-search {
+            padding: 16px 20px;
+            position: relative;
+        }
+
+        .modal-search i {
+            position: absolute;
+            right: 36px;
+            top: 30px;
             color: var(--text-secondary);
         }
-        .loader i { font-size: 40px; margin-bottom: 16px; }
 
-        /* تنقل سفلي */
+        .modal-search input {
+            width: 100%;
+            padding: 14px 48px 14px 16px;
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 20px 20px;
+        }
+
+        .country-item-modal {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .country-item-modal:hover {
+            background: var(--bg-hover);
+            padding-right: 8px;
+            border-radius: var(--radius-md);
+        }
+
+        .country-info-modal {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .country-flag-modal {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+        }
+
+        .country-details-modal h4 {
+            font-size: var(--font-md);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .country-details-modal p {
+            color: var(--text-secondary);
+            font-size: var(--font-xs);
+        }
+
+        .country-price-modal {
+            font-weight: 800;
+            font-size: var(--font-xl);
+            color: var(--accent);
+        }
+
+        .country-price-modal small {
+            font-size: var(--font-xs);
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* ==================== شريط التنقل السفلي ==================== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             background: var(--bg-card);
+            backdrop-filter: blur(15px);
             border-top: 1px solid var(--border-color);
-            padding: 8px 16px;
+            padding: 6px 16px;
             display: flex;
             justify-content: space-around;
+            z-index: 99;
         }
+
         .bottom-nav a {
-            color: var(--text-secondary);
+            color: var(--text-muted);
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 11px;
+            gap: 3px;
+            font-size: var(--font-2xs);
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: var(--radius-full);
+            transition: all var(--transition-fast);
         }
-        .bottom-nav a i { font-size: 20px; margin-bottom: 2px; }
-        .bottom-nav a.active { color: var(--primary); }
 
-        /* Toast */
+        .bottom-nav a i { font-size: 20px; }
+
+        .bottom-nav a.active {
+            color: var(--primary);
+            background: var(--primary-soft);
+        }
+
+        /* ==================== Toast ==================== */
         .toast {
             position: fixed;
             bottom: 90px;
             left: 20px;
             right: 20px;
             background: var(--bg-card);
-            border-right: 4px solid var(--success);
-            padding: 16px;
-            border-radius: 12px;
-            display: none;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            display: flex;
             align-items: center;
             gap: 12px;
+            box-shadow: var(--shadow-xl);
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
             max-width: 400px;
             margin: 0 auto;
-            z-index: 1000;
         }
-        .toast.show { display: flex; }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { border-right: 4px solid var(--success); }
+        .toast.error { border-right: 4px solid var(--danger); }
+        .toast.warning { border-right: 4px solid var(--warning); }
+        .toast i { font-size: 24px; }
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--danger); }
+        .toast.warning i { color: var(--warning); }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 700; margin-bottom: 2px; }
+        .toast-message { font-size: var(--font-sm); color: var(--text-secondary); }
+        .toast-close { color: var(--text-muted); cursor: pointer; font-size: 18px; }
+
+        /* ==================== قائمة المستخدم ==================== */
+        .user-menu {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 8px;
+            z-index: 1000;
+            min-width: 200px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .user-menu-item {
+            width: 100%;
+            padding: 14px 16px;
+            text-align: right;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: var(--font-sm);
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+        }
+
+        .user-menu-item i { width: 20px; color: var(--primary); }
+        .user-menu-item:hover { background: var(--bg-hover); }
+        .user-menu-item.danger { color: var(--danger); }
+        .user-menu-item.danger i { color: var(--danger); }
+
+        .menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 8px 0;
+        }
+
+        /* ==================== أدوات مساعدة ==================== */
+        .d-none { display: none !important; }
+        .d-flex { display: flex !important; }
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 12px; }
+        .mb-2 { margin-bottom: 12px; }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
-<div class="container">
-    <!-- هيدر -->
-    <div class="header">
-        <a href="index.html" class="logo">SIMIFY<span>.</span></a>
-        <div class="balance" onclick="location.href='funds.html'">
-            <i class="fas fa-wallet"></i>
-            <span id="balanceDisplay">0.00</span> ج.م
+    <div class="bg-decoration"></div>
+
+    <!-- شريط العروض -->
+    <div class="promo-bar" id="promoBar">
+        <i class="fas fa-gift"></i>
+        <span>خصم <strong>25%</strong> على أول شحن</span>
+        <span>|</span>
+        <span>كود: <strong>SIMIFY25</strong></span>
+        <i class="fas fa-gift"></i>
+        <i class="fas fa-times" style="margin-right: auto; opacity: 0.6; cursor: pointer;" onclick="this.parentElement.style.display='none'"></i>
+    </div>
+
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="container">
+            <div class="header-row">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-sim-card"></i>
+                    SIMIFY<span>.</span>
+                </a>
+                <div class="user-info">
+                    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="balance-badge" onclick="window.location.href='funds.html'">
+                        <i class="fas fa-wallet"></i>
+                        <span class="balance-amount" id="userBalance">0.00 <small>ج.م</small></span>
+                    </div>
+                    <div class="user-avatar" id="userAvatar" onclick="toggleUserMenu()">
+                        <span id="userInitial">م</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- شريط البحث -->
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="ابحث عن خدمة..." oninput="filterServices()">
+                </div>
+            </div>
+
+            <!-- المحتوى الديناميكي -->
+            <div id="dynamicContent"></div>
+        </div>
+    </main>
+
+    <!-- النافذة المنبثقة للدول -->
+    <div class="modal-overlay" id="countriesModal">
+        <div class="modal-content-countries">
+            <div class="modal-header">
+                <h3 id="modalServiceTitle">
+                    <i class="fas fa-globe"></i>
+                    <span>اختر الدولة</span>
+                </h3>
+                <button class="modal-close" onclick="closeCountriesModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="modalSearchInput" placeholder="ابحث عن دولة..." oninput="filterModalCountries()">
+            </div>
+            <div class="modal-body" id="modalCountriesList">
+                <!-- سيتم ملؤها ديناميكياً -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="width: 100%;" onclick="closeCountriesModal()">
+                    إغلاق
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- بحث -->
-    <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="ابحث عن خدمة..." oninput="filterServices()">
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a href="dashboard.html" class="active"><i class="fas fa-columns"></i><span>الخدمات</span></a>
+        <a href="activation.html"><i class="fas fa-history"></i><span>التفعيلات</span></a>
+        <a href="funds.html"><i class="fas fa-wallet"></i><span>الرصيد</span></a>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">نجاح</div>
+            <div class="toast-message" id="toastMessage">تمت العملية بنجاح</div>
+        </div>
+        <i class="fas fa-times toast-close" onclick="hideToast()"></i>
     </div>
 
-    <!-- تصنيفات -->
-    <div class="categories">
-        <span class="category active" onclick="filterCategory('all')">الكل</span>
-        <span class="category" onclick="filterCategory('social')">تواصل</span>
-        <span class="category" onclick="filterCategory('email')">بريد</span>
-        <span class="category" onclick="filterCategory('finance')">مالية</span>
-        <span class="category" onclick="filterCategory('other')">أخرى</span>
-    </div>
+    <!-- Firebase & Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
-    <!-- المحتوى الديناميكي -->
-    <div id="content"></div>
-</div>
+    <script>
+        // ==================== Firebase Configuration ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfkuAvySUDyzmMWHFMFlx1FL0gGFYT3Ek",
+            authDomain: "takhmen1.firebaseapp.com",
+            projectId: "takhmen1",
+            storageBucket: "takhmen1.firebasestorage.app",
+            messagingSenderId: "558818074473",
+            appId: "1:558818074473:web:907ff68e4c3fabb7fd27f8"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-<!-- تنقل سفلي -->
-<nav class="bottom-nav">
-    <a href="index.html"><i class="fas fa-home"></i><span>الرئيسية</span></a>
-    <a href="dashboard.html" class="active"><i class="fas fa-columns"></i><span>الخدمات</span></a>
-    <a href="activation.html"><i class="fas fa-history"></i><span>التفعيلات</span></a>
-    <a href="funds.html"><i class="fas fa-wallet"></i><span>الرصيد</span></a>
-</nav>
+        const API_BASE_URL = 'https://simify-back.vercel.app/api';
 
-<!-- Toast -->
-<div class="toast" id="toast">
-    <i class="fas fa-check-circle"></i>
-    <div><strong id="toastTitle">نجاح</strong><br><span id="toastMessage"></span></div>
-</div>
+        // ==================== State ====================
+        let currentUser = null;
+        let userBalance = 0;
+        let allServices = [];
+        let filteredServices = [];
+        let searchQuery = '';
+        let currentModalService = null;
+        let modalCountries = [];
+        let filteredModalCountries = [];
+        let toastTimeout = null;
+        let userMenuVisible = false;
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-<script>
-    // ==================== CONFIG ====================
-    const firebaseConfig = {
-        apiKey: "AIzaSyAfkuAvySUDyzmMWHFMFlx1FL0gGFYT3Ek",
-        authDomain: "takhmen1.firebaseapp.com",
-        projectId: "takhmen1",
-        storageBucket: "takhmen1.firebasestorage.app",
-        messagingSenderId: "558818074473",
-        appId: "1:558818074473:web:907ff68e4c3fabb7fd27f8"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    const API_URL = 'https://simify-back.vercel.app/api';
-
-    // ==================== STATE ====================
-    let currentUser = null;
-    let userBalance = 0;
-    let allServices = [];
-    let filteredServices = [];
-    let currentCategory = 'all';
-    let searchQuery = '';
-    let selectedService = null;
-
-    // أسماء الخدمات بالعربي
-    const serviceNamesAr = {
-        'tg': 'تيليجرام', 'wa': 'واتساب', 'wb': 'واتساب بزنس', 'vk': 'فكونتاكتي',
-        'fb': 'فيسبوك', 'ig': 'إنستجرام', 'tw': 'تويتر', 'gm': 'جوجل',
-        'go': 'جوجل فويس', 'ya': 'ياندكس', 'pp': 'باي بال', 'am': 'أمازون',
-        'ds': 'ديسكورد', 'nf': 'نتفليكس', 'ts': 'باي بال', 'sn': 'سناب شات',
-        'im': 'إيمو', 'me': 'لاين', 'vi': 'فايبر', 'ok': 'أودنوكلاسنيكي',
-        'ma': 'مايل.رو', 'ml': 'مايل.رو', 'bv': 'بينانس', 'sf': 'سبوتيفاي',
-        'ub': 'أوبر', 'ly': 'أولا', 'yh': 'ياهو', 'oi': 'تيندر', 'lf': 'تيك توك'
-    };
-
-    // أيقونات
-    const serviceIcons = {
-        'tg': 'paper-plane', 'wa': 'whatsapp', 'fb': 'facebook', 'ig': 'instagram',
-        'tw': 'twitter', 'gm': 'google', 'go': 'google', 'ds': 'discord',
-        'nf': 'netflix', 'sn': 'snapchat', 'im': 'message', 'vi': 'viber',
-        'pp': 'paypal', 'ts': 'paypal', 'am': 'amazon', 'ub': 'uber'
-    };
-
-    // ==================== دوال مساعدة ====================
-    function showToast(title, message) {
-        const toast = document.getElementById('toast');
-        document.getElementById('toastTitle').textContent = title;
-        document.getElementById('toastMessage').textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-
-    function getServiceName(code) {
-        return serviceNamesAr[code] || code.toUpperCase();
-    }
-
-    function getServiceIcon(code) {
-        return serviceIcons[code] || 'globe';
-    }
-
-    // ==================== تحميل الخدمات ====================
-    async function loadServices() {
-        const content = document.getElementById('content');
-        content.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-pulse"></i><p>جاري تحميل الخدمات...</p></div>`;
-
-        try {
-            const response = await fetch(`${API_URL}/services`);
-            const data = await response.json();
+        // ==================== دوال المساعدة ====================
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            const icon = toast.querySelector('i');
             
-            if (data.success && data.services) {
-                allServices = data.services.map(s => ({
-                    ...s,
-                    nameAr: getServiceName(s.code)
+            if (toastTimeout) clearTimeout(toastTimeout);
+            
+            toast.classList.remove('show', 'success', 'error', 'warning');
+            toast.classList.add(type, 'show');
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            
+            if (type === 'success') icon.className = 'fas fa-check-circle';
+            else if (type === 'error') icon.className = 'fas fa-exclamation-circle';
+            else icon.className = 'fas fa-exclamation-triangle';
+            
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        window.hideToast = () => document.getElementById('toast').classList.remove('show');
+
+        // ==================== إدارة المظهر ====================
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            
+            const icon = document.querySelector('#themeToggle i');
+            icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            
+            localStorage.setItem('simify_theme', newTheme);
+        }
+
+        // تحميل المظهر المحفوظ
+        const savedTheme = localStorage.getItem('simify_theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+            document.querySelector('#themeToggle i').className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // ==================== تحميل بيانات المستخدم ====================
+        async function loadUserData() {
+            try {
+                const user = auth.currentUser;
+                if (!user) {
+                    window.location.href = 'auth.html';
+                    return;
+                }
+
+                currentUser = user;
+                document.getElementById('userInitial').textContent = 
+                    (user.displayName?.[0] || user.email?.[0] || 'م').toUpperCase();
+
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    userBalance = userDoc.data().balance || 0;
+                    document.getElementById('userBalance').innerHTML = `${userBalance.toFixed(2)} <small>ج.م</small>`;
+                }
+
+                localStorage.setItem('simify_user', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName,
+                    balance: userBalance
                 }));
-                filterServices();
-                renderServices();
-            } else {
-                throw new Error('No services');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            // خدمات احتياطية
-            allServices = [
-                { code: 'tg', name: 'Telegram' }, { code: 'wa', name: 'WhatsApp' },
-                { code: 'gm', name: 'Google' }, { code: 'fb', name: 'Facebook' },
-                { code: 'ig', name: 'Instagram' }, { code: 'ds', name: 'Discord' }
-            ];
-            filterServices();
-            renderServices();
-            showToast('تنبيه', 'تم تحميل خدمات افتراضية');
-        }
-    }
 
-    // ==================== عرض الخدمات ====================
-    function renderServices() {
-        const content = document.getElementById('content');
-        
-        if (filteredServices.length === 0) {
-            content.innerHTML = `<div class="loader"><i class="fas fa-search"></i><p>لا توجد خدمات</p></div>`;
-            return;
+            } catch (error) {
+                console.error('Error loading user:', error);
+            }
         }
 
-        const popularCodes = ['tg', 'wa', 'gm', 'fb', 'ig', 'ds'];
-        
-        content.innerHTML = `
-            <div class="section-title">
-                <h3>الخدمات المتاحة</h3>
-                <span>${filteredServices.length} خدمة</span>
-            </div>
-            <div class="services-grid">
-                ${filteredServices.map(service => {
-                    const code = service.code;
-                    const name = getServiceName(code);
-                    const isPopular = popularCodes.includes(code);
-                    
-                    return `
-                        <div class="service-card" onclick="selectService('${code}')">
-                            ${isPopular ? '<span class="popular-badge">🔥 الأكثر طلباً</span>' : ''}
-                            <i class="fab fa-${getServiceIcon(code)}"></i>
-                            <h4>${name}</h4>
-                            <p>${code.toUpperCase()}</p>
-                        </div>
-                    `;
-                }).join('')}
-            </div>
-        `;
-    }
+        // ==================== جلب الخدمات ====================
+        async function fetchServices() {
+            const content = document.getElementById('dynamicContent');
+            content.innerHTML = `
+                <div class="loading-container">
+                    <div class="loader-spinner"></div>
+                    <p>جاري تحميل الخدمات...</p>
+                </div>
+            `;
 
-    // ==================== تصفية ====================
-    function filterServices() {
-        filteredServices = allServices.filter(service => {
-            const code = service.code;
-            const name = getServiceName(code);
-            
-            // تصفية حسب البحث
-            if (searchQuery) {
-                const query = searchQuery.toLowerCase();
-                if (!name.includes(query) && !code.includes(query)) return false;
+            try {
+                const response = await fetch(`${API_BASE_URL}/popular-services`);
+                const data = await response.json();
+                
+                if (data.success && data.services) {
+                    allServices = data.services;
+                    filteredServices = [...allServices];
+                    renderServices();
+                } else {
+                    throw new Error('No services');
+                }
+            } catch (error) {
+                console.error('Error fetching services:', error);
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h4>تعذر تحميل الخدمات</h4>
+                        <p>يرجى المحاولة مرة أخرى</p>
+                        <button class="btn btn-primary" onclick="fetchServices()">إعادة المحاولة</button>
+                    </div>
+                `;
             }
+        }
+
+        // ==================== عرض الخدمات ====================
+        function renderServices() {
+            const content = document.getElementById('dynamicContent');
             
-            return true;
-        });
-    }
-
-    window.filterCategory = (cat) => {
-        currentCategory = cat;
-        document.querySelectorAll('.category').forEach((el, i) => {
-            el.classList.toggle('active', i === ['all','social','email','finance','other'].indexOf(cat));
-        });
-        filterServices();
-        renderServices();
-    };
-
-    window.filterServices = () => {
-        searchQuery = document.getElementById('searchInput').value.toLowerCase();
-        filterServices();
-        renderServices();
-    };
-
-    // ==================== اختيار خدمة ====================
-    window.selectService = async (code) => {
-        selectedService = code;
-        const content = document.getElementById('content');
-        content.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-pulse"></i><p>جاري تحميل الدول...</p></div>`;
-
-        try {
-            const response = await fetch(`${API_URL}/prices?service=${code}`);
-            const data = await response.json();
-            
-            let countries = [];
-            if (data.success && data.prices) {
-                countries = Object.entries(data.prices).map(([id, info]) => ({
-                    id,
-                    name: getCountryName(id),
-                    price: info.costEgp || info.cost || 15,
-                    count: info.count || 0
-                })).filter(c => c.count > 0).slice(0, 12);
-            }
-
-            if (countries.length === 0) {
-                countries = [
-                    { id: '0', name: 'روسيا', price: 12.50, count: 10 },
-                    { id: '12', name: 'الولايات المتحدة', price: 18.00, count: 8 },
-                    { id: '21', name: 'مصر', price: 8.00, count: 15 },
-                    { id: '53', name: 'السعودية', price: 14.00, count: 12 }
-                ];
+            if (filteredServices.length === 0) {
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fas fa-search"></i></div>
+                        <h4>لا توجد خدمات</h4>
+                        <p>جرب البحث عن خدمة أخرى</p>
+                    </div>
+                `;
+                return;
             }
 
             content.innerHTML = `
-                <div class="back-btn" onclick="renderServices()">
-                    <i class="fas fa-arrow-right"></i>
-                    <span>رجوع للخدمات</span>
+                <div class="section-header">
+                    <h3><i class="fas fa-th-large"></i> الخدمات المتاحة</h3>
+                    <span class="section-count">${filteredServices.length} خدمات</span>
                 </div>
-                <div class="section-title">
-                    <h3>${getServiceName(code)}</h3>
-                    <span>${countries.length} دولة</span>
-                </div>
-                <div class="countries-grid">
-                    ${countries.map(c => `
-                        <div class="country-card" onclick="buyNumber('${code}', '${c.id}', '${c.name}', ${c.price})">
-                            <div class="country-flag"><i class="fas fa-flag"></i></div>
-                            <div class="country-info">
-                                <h4>${c.name}</h4>
-                                <p>${c.count} رقم متاح</p>
+                <div class="services-grid">
+                    ${filteredServices.map(service => `
+                        <div class="service-card-main" onclick="showCountriesModal('${service.code}')">
+                            <div class="service-header-main">
+                                <div class="service-icon-main">
+                                    <i class="fab fa-${service.icon}"></i>
+                                </div>
+                                <div class="service-info-main">
+                                    <h4>${service.nameAr || service.name}</h4>
+                                    <p class="service-code">${service.code.toUpperCase()}</p>
+                                    <div class="service-stats">
+                                        <span class="stat-badge"><i class="fas fa-globe"></i> ${service.totalCountries} دولة</span>
+                                        <span class="stat-badge"><i class="fas fa-tag"></i> من ${service.minPrice.toFixed(2)} ج.م</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="country-price">${c.price.toFixed(2)} ج.م</div>
+                            <div class="countries-preview-main">
+                                ${service.countries.slice(0, 3).map(c => `
+                                    <div class="country-preview-item" onclick="event.stopPropagation(); quickBuy('${service.code}', '${c.code}', '${c.name}', ${c.priceEgp})">
+                                        <div class="country-flag-preview"><i class="fas fa-flag"></i></div>
+                                        <div class="country-name-preview">${c.name}</div>
+                                        <div class="country-price-preview">${c.priceEgp.toFixed(2)} ج.م</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${service.countries.length > 3 ? `
+                                <div class="more-countries-btn" onclick="event.stopPropagation(); showCountriesModal('${service.code}')">
+                                    <i class="fas fa-chevron-down"></i>
+                                    عرض ${service.countries.length - 3} دول أخرى
+                                </div>
+                            ` : ''}
                         </div>
                     `).join('')}
                 </div>
+                <div style="margin-top: 20px; padding: 12px; background: var(--primary-soft); border-radius: var(--radius-lg); text-align: center;">
+                    <p style="color: var(--text-secondary); font-size: 13px;">
+                        <i class="fas fa-info-circle"></i>
+                        الأسعار تشمل سعر الصرف (${data.meta?.usdToEgp || 50} ج.م/دولار) + نسبة ربح ${data.meta?.profitMargin || 20}%
+                    </p>
+                </div>
             `;
-        } catch (error) {
-            content.innerHTML = `<div class="loader"><i class="fas fa-exclamation-triangle"></i><p>حدث خطأ</p><button onclick="renderServices()" style="margin-top:16px;padding:12px 24px;background:var(--primary);border:none;border-radius:30px;color:white;">رجوع</button></div>`;
         }
-    };
 
-    function getCountryName(id) {
-        const names = {
-            '0': 'روسيا', '1': 'أوكرانيا', '2': 'كازاخستان', '12': 'الولايات المتحدة',
-            '16': 'إنجلترا', '21': 'مصر', '53': 'السعودية', '73': 'البرازيل',
-            '43': 'ألمانيا', '78': 'فرنسا', '86': 'إيطاليا', '62': 'تركيا'
-        };
-        return names[id] || `دولة ${id}`;
-    }
-
-    window.buyNumber = (service, country, countryName, price) => {
-        // التحقق من الرصيد
-        if (userBalance < price) {
-            showToast('رصيد غير كافي', `رصيدك ${userBalance.toFixed(2)} ج.م - المطلوب ${price} ج.م`);
-            return;
-        }
-        
-        if (confirm(`تأكيد شراء رقم ${getServiceName(service)} من ${countryName} بسعر ${price} ج.م؟`)) {
-            showToast('جاري الشراء', 'يتم معالجة طلبك...');
-            // هنا يتم استدعاء API الشراء
-            // purchaseNumber(service, country, price);
-        }
-    };
-
-    // ==================== تحميل بيانات المستخدم ====================
-    auth.onAuthStateChanged(async (user) => {
-        if (!user) {
-            window.location.href = 'auth.html';
-            return;
-        }
-        
-        currentUser = user;
-        
-        try {
-            const doc = await db.collection('users').doc(user.uid).get();
-            if (doc.exists) {
-                userBalance = doc.data().balance || 0;
-                document.getElementById('balanceDisplay').textContent = userBalance.toFixed(2);
+        // ==================== تصفية الخدمات ====================
+        window.filterServices = () => {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (!searchQuery) {
+                filteredServices = [...allServices];
+            } else {
+                filteredServices = allServices.filter(service => {
+                    const name = (service.nameAr || service.name).toLowerCase();
+                    const code = service.code.toLowerCase();
+                    return name.includes(searchQuery) || code.includes(searchQuery);
+                });
             }
-        } catch (e) {
-            console.error('Error loading balance:', e);
+            
+            renderServices();
+        };
+
+        // ==================== النافذة المنبثقة للدول ====================
+        window.showCountriesModal = (serviceCode) => {
+            const service = allServices.find(s => s.code === serviceCode);
+            if (!service) return;
+            
+            currentModalService = service;
+            modalCountries = service.countries;
+            filteredModalCountries = [...modalCountries];
+            
+            document.getElementById('modalServiceTitle').innerHTML = `
+                <i class="fab fa-${service.icon}"></i>
+                <span>${service.nameAr || service.name}</span>
+            `;
+            
+            renderModalCountries();
+            document.getElementById('countriesModal').classList.add('show');
+        };
+
+        function renderModalCountries() {
+            const container = document.getElementById('modalCountriesList');
+            
+            if (filteredModalCountries.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding: 40px 0;">
+                        <i class="fas fa-search" style="font-size: 40px; opacity: 0.5;"></i>
+                        <p>لا توجد دول مطابقة</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredModalCountries.map(country => `
+                <div class="country-item-modal" onclick="selectCountry('${currentModalService.code}', '${country.code}', '${country.name}', ${country.priceEgp})">
+                    <div class="country-info-modal">
+                        <div class="country-flag-modal">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="country-details-modal">
+                            <h4>${country.name}</h4>
+                            <p><i class="fas fa-phone"></i> ${country.count} رقم متاح</p>
+                        </div>
+                    </div>
+                    <div class="country-price-modal">
+                        ${country.priceEgp.toFixed(2)} <small>ج.م</small>
+                    </div>
+                </div>
+            `).join('');
         }
-        
-        loadServices();
-    });
-</script>
+
+        window.filterModalCountries = () => {
+            const searchTerm = document.getElementById('modalSearchInput').value.toLowerCase();
+            
+            if (!searchTerm) {
+                filteredModalCountries = [...modalCountries];
+            } else {
+                filteredModalCountries = modalCountries.filter(c => 
+                    c.name.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderModalCountries();
+        };
+
+        window.closeCountriesModal = () => {
+            document.getElementById('countriesModal').classList.remove('show');
+            document.getElementById('modalSearchInput').value = '';
+        };
+
+        // ==================== اختيار الدولة والشراء ====================
+        window.selectCountry = (service, countryCode, countryName, price) => {
+            closeCountriesModal();
+            
+            if (userBalance < price) {
+                showToast('error', 'رصيد غير كافي', `رصيدك ${userBalance.toFixed(2)} ج.م - المطلوب ${price} ج.م`);
+                return;
+            }
+            
+            if (confirm(`تأكيد شراء رقم ${service.toUpperCase()} من ${countryName} بسعر ${price} ج.م؟`)) {
+                purchaseNumber(service, countryCode, price);
+            }
+        };
+
+        window.quickBuy = (service, countryCode, countryName, price) => {
+            if (userBalance < price) {
+                showToast('error', 'رصيد غير كافي', `رصيدك ${userBalance.toFixed(2)} ج.م - المطلوب ${price} ج.م`);
+                return;
+            }
+            
+            if (confirm(`تأكيد شراء رقم ${service.toUpperCase()} من ${countryName} بسعر ${price} ج.م؟`)) {
+                purchaseNumber(service, countryCode, price);
+            }
+        };
+
+        async function purchaseNumber(service, country, price) {
+            showToast('info', 'جاري الشراء', 'يتم معالجة طلبك...');
+            
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/get-number?uid=${currentUser.uid}&service=${service}&country=${country}`,
+                    { method: 'GET' }
+                );
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    userBalance = data.remainingBalance;
+                    document.getElementById('userBalance').innerHTML = `${userBalance.toFixed(2)} <small>ج.م</small>`;
+                    
+                    showToast('success', 'تم الشراء', `تم شراء الرقم ${data.phoneNumber} بنجاح`);
+                    
+                    // حفظ التفعيل والانتقال لصفحة التفعيلات
+                    sessionStorage.setItem('new_activation', JSON.stringify({
+                        id: data.activationId,
+                        number: data.phoneNumber,
+                        service: service,
+                        price: price
+                    }));
+                    
+                    setTimeout(() => {
+                        window.location.href = 'activation.html';
+                    }, 1500);
+                } else {
+                    showToast('error', 'خطأ', data.error || 'حدث خطأ في شراء الرقم');
+                }
+            } catch (error) {
+                console.error('Purchase error:', error);
+                showToast('error', 'خطأ', 'حدث خطأ في الاتصال بالسيرفر');
+            }
+        }
+
+        // ==================== قائمة المستخدم ====================
+        window.toggleUserMenu = () => {
+            const existingMenu = document.querySelector('.user-menu');
+            if (existingMenu) {
+                existingMenu.remove();
+                return;
+            }
+            
+            const menu = document.createElement('div');
+            menu.className = 'user-menu';
+            menu.innerHTML = `
+                <div style="padding: 12px; border-bottom: 1px solid var(--border-color);">
+                    <p style="font-weight: 700;">${currentUser?.displayName || 'مستخدم'}</p>
+                    <p style="color: var(--text-secondary); font-size: 12px;">${currentUser?.email || ''}</p>
+                </div>
+                <button class="user-menu-item" onclick="window.location.href='funds.html'">
+                    <i class="fas fa-wallet"></i> شحن الرصيد
+                </button>
+                <button class="user-menu-item" onclick="window.location.href='activation.html'">
+                    <i class="fas fa-history"></i> سجل التفعيلات
+                </button>
+                <div class="menu-divider"></div>
+                <button class="user-menu-item danger" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+            `;
+            
+            document.body.appendChild(menu);
+            
+            setTimeout(() => {
+                document.addEventListener('click', function closeMenu(e) {
+                    if (!menu.contains(e.target) && !e.target.closest('.user-avatar')) {
+                        menu.remove();
+                        document.removeEventListener('click', closeMenu);
+                    }
+                });
+            }, 100);
+        };
+
+        window.logout = async () => {
+            await auth.signOut();
+            localStorage.removeItem('simify_user');
+            window.location.href = 'auth.html';
+        };
+
+        // ==================== إغلاق النافذة المنبثقة بالضغط خارجها ====================
+        document.getElementById('countriesModal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeCountriesModal();
+            }
+        });
+
+        // ==================== تهيئة الصفحة ====================
+        async function initDashboard() {
+            AOS.init({ duration: 500, once: true });
+            
+            auth.onAuthStateChanged(async (user) => {
+                if (!user) {
+                    window.location.href = 'auth.html';
+                    return;
+                }
+                
+                await loadUserData();
+                await fetchServices();
+            });
+        }
+
+        initDashboard();
+    </script>
 </body>
 </html>
